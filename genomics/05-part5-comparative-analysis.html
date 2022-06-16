@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)https://biomedicalhub.github.io/genomics/05-part5-comparative-analysis.html -->
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Part 5. Comparative Analysis · Introduction to Genomics
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./05-part5-comparative-analysis_files/poole.css">
+  <link rel="stylesheet" href="./05-part5-comparative-analysis_files/syntax.css">
+  <link rel="stylesheet" href="./05-part5-comparative-analysis_files/lanyon.css">
+  <link rel="stylesheet" href="./05-part5-comparative-analysis_files/custom.css">
+  <link rel="stylesheet" href="./05-part5-comparative-analysis_files/css">
+  <link rel="stylesheet" href="./05-part5-comparative-analysis_files/font-awesome.min.css">
+
+  <!-- Icons -->
+<!--   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/genomicspublic/apple-touch-icon-precomposed.png"> -->
+  <!--link rel="shortcut icon" href="/genomics/public/favicon.ico"-->
+
+  <!-- RSS -->
+  <!--link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml"-->
+</head>
+
+  
+  <body class="sidebar-overlay">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+
+<a href="http://www.exeter.ac.uk/biomedicalhub/training/" target="exeter-biomedical-hub-training-page">
+  <div class="sidebar-logo">
+    <img style="margin-left:auto;margin-right:auto;margin-top:5px;" width="95%" src="./05-part5-comparative-analysis_files/uv.png">
+  </div>
+</a>
+
+<div id="contact-list" style="text-align:center">
+    
+
+    
+
+    
+</div>
+<div id="contact-list" style="text-align:center">
+    
+    
+    
+</div>
+<div id="contact-list" style="text-align:center">
+    
+    <!--a href="/atom.xml">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x"></i>
+        <i class="fa fa-rss fa-stack-1x"></i>
+      </span>
+    </a-->
+</div>
+
+  <!--div class="sidebar-item">
+    <p>Exeter University Informatic Hub - Genomics Course</p>
+  </div-->
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/">Home</a>
+
+    <!--a class="sidebar-nav-item" href="/genomics/blog">Blog</a-->
+
+    
+
+    
+
+
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/00-welcome.html">
+             
+                Welcome
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/01-part1-introduction.html">
+             
+                1. Short Read: Introduction
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/02-part2-remapping.html">
+             
+                2. Short Read: Remapping
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html">
+             
+                3. Unmapped Read Assembly
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/04-part4-denovo-assembly.html">
+             
+                4. De-novo Assembly
+             
+          </a>
+    
+          <a class="sidebar-nav-item active " href="https://biomedicalhub.github.io/genomics/05-part5-comparative-analysis.html">
+             
+                5. Comparative Analysis
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/06-part6-long-read-assembly.html">
+             
+                6. Long Read Assembly
+             
+          </a>
+    
+
+    <!-- <a class="sidebar-nav-item" href="/archive/v.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      © 2019. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://biomedicalhub.github.io/genomics/" title="Home">Introduction to Genomics</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+          
+
+<div class="page-navigation">
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+     
+	    <a class="prev" href="https://biomedicalhub.github.io/genomics/04-part4-denovo-assembly.html">« Part 4. De-novo Assembly</a>
+    
+     
+      
+	    <a class="next" href="https://biomedicalhub.github.io/genomics/06-part6-long-read-assembly.html">» Part 6. Long Read Assembly</a>
+    
+  
+  
+
+  
+  
+
+</div> 
+
+<div class="page">
+	<h1 class="page-title">Part 5. Comparative Analysis</h1>
+	<h3 id="introduction">Introduction:</h3>
+
+<p><img src="./05-part5-comparative-analysis_files/2017_Workshop_on_Genomics_FINAL-102_1.png" alt=""></p>
+
+<p>In the previous sections you have
+been taken through the steps required to:</p>
+
+<ol>
+  <li>QC and filter Illumina data</li>
+  <li>Remap Illumina short-read data to a reference sequence</li>
+  <li>View the results in IGV</li>
+  <li>Identify SNPs and Indels in an automated fashion using samtools and bcftools</li>
+  <li>Determine whether SNPs result in synonymous or non-synonymous changes in the corresponding amino acid</li>
+  <li>Extract unmapped reads</li>
+  <li>Assemble unmapped reads and obtain assembly statistics</li>
+  <li>Annotate unmapped reads using Pfam, RAST and/or BLAST</li>
+  <li>Assemble a bacterial genome de-novo using SPAdes</li>
+  <li>Obtain assembly statistics</li>
+  <li>Annotate as per the unmapped reads (where computationally feasible).</li>
+</ol>
+
+<p>Now we want you to do the same on a set of <em>Vibrio parahaemolyticus</em> strains which have been isolated and sequenced. There are six strains available depending on how much time is available and enthusiasm you have - choose a number of strains (at least 2) as we want to run some comparisons.</p>
+
+<p>The strains can be found in:</p>
+
+<p><code class="highlighter-rouge">cd ~/workshop_materials/genomics_tutorial/data/sequencing/Vibrio_parahaemolyticus</code></p>
+
+<p><img src="./05-part5-comparative-analysis_files/part5_intro_01.png" alt=""></p>
+
+<p>Under each Sample directory is a subdirectory called raw_illumina_reads which contains the fastq files.</p>
+
+<p>For remapping, the reference can be found in the folder:<br>
+~/workshop_materials/genomics_tutorial/data/reference/Vibrio_parahaemolyticus_RIMD_2210633_uid57969
+(Remember, you will need to create an index first).</p>
+
+<p>For each strain, make a list of:</p>
+
+<ul>
+  <li>SNPs, Indels and their effects (from the remapping)</li>
+  <li>Missing genes (from the remapping)</li>
+  <li>Novel plasmids and/or genes (Pfam domains are the easiest way to do this via denovo assembly of unmapped reads - when performing the assembly - don’t specify the k-mers SPAdes will choose appropriate ones.)</li>
+</ul>
+
+<p>Once completed, see if you can predict what the phenotype of these bacteria might be. Then proceed to the final part of the tutorial where we will compare the results from all of these strains.</p>
+
+<p><strong>N.B.</strong> It is recommended that you follow the same directory naming convention we have followed here (i.e. one for remapping to the reference, another for assembly of unmapped reads and a final one for the denovo assembly).</p>
+
+<p>These tasks may take you several days. However, remember that all of the basic procedures are detailed in the previous sections - only the input FASTQ files will have changed. Feel free to refer to these previous tasks to remind yourself of the commands and parameters. By all means feel free to play around with different parameters if you wish, although remember that the results may differ from those you see here.</p>
+
+<p>Just to give you some guidance:</p>
+
+<p>You should find that strain Sample_T0347070 yields many more SNPs than other strains.</p>
+
+<p>You may find that some scripts and programs run more slowly because of these extra differences and larger datasets.</p>
+
+<p>Also, if you find the de novo assembly process causes your session to end, the chances are that SPAdes has caused your instance to run out of memory. If this happens, increase the minimum k-mer size in the spades.py command line.</p>
+
+<p>Here we will use a script to compare the variants called in each sample. Ensure you are in the<br>
+~/workshop_materials/genomics_tutorial/data/sequencing/Vibrio_parahaemolyticus directory</p>
+
+<p>First of all, let’s make a directory to store the results of the comparison:</p>
+
+<p><code class="highlighter-rouge">mkdir snp_comparison</code></p>
+
+<p>We need a copy of all of the vcf4 files we created here. This is a quick way to do it - paste this in as one command</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for sample in Sample*
+do
+cp -v $sample/remapping_to_reference/out.snps.vcf4 snp_comparison/\$sample.out.snps.vcf4
+done
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">cd snp_comparison</code></p>
+
+<p>Note that the copy commands may require modification depending on where you have saved the variant call results.</p>
+
+<p>Our directory contents should look something like:</p>
+
+<p><img src="./05-part5-comparative-analysis_files/part5_intro_02.png" alt=""></p>
+
+<p>We’ll now set up some variables so we don’t have to type long path names</p>
+
+<p><code class="highlighter-rouge">ref=~/workshop_materials/genomics_tutorial/data/reference/Vibrio_parahaemolyticus_RIMD_2210633_uid57969/Vibrio_parahaemolyticus_RIMD_2210633_uid57969.fasta</code></p>
+
+<p><code class="highlighter-rouge">gff=~/workshop_materials/genomics_tutorial/data/reference/Vibrio_parahaemolyticus_RIMD_2210633_uid57969/Vibrio_parahaemolyticus_RIMD_2210633_uid57969.gff</code></p>
+
+<p>samples=`ls *.vcf`</p>
+
+<p>We can now use $ref instead of the long path to our reference and $gff for the feature file.
+e.g.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>head $ref
+echo $samples
+</code></pre></div></div>
+
+<p>When we are happy our variables are correct then run:</p>
+
+<p><code class="highlighter-rouge">snp_comparator.pl 10  $ref  $gff  $samples  &gt; snp_comparison.txt</code></p>
+
+<p>Looking at the snp_comparison.txt file (either in a text editor, or in a spreadsheet):<br>
+If you have chosen different samples - you will get different results of course.</p>
+
+<p>Here we can see the chromosome ID, the position in bp, the reference base and the base at each position as well as the gene (if any) the variant occurs in as well as the effect (silent, non-silent or indel).</p>
+
+<p>Obtaining a phylogeny based on synonymous SNPs only:</p>
+
+<p>How are the strains related on the basis of these variants? We can ask a number of questions, but if we are looking at the long-term evolutionary history of the strains we should only look at synonymous (i.e. silent) mutations as these should not confer a significant selective advantage to any strain. Using the data snp_comparison.txt file, we can form ‘pseudo-sequences’ using the script snp2tree_fullsequence.pl</p>
+
+<p>These are concatenated bases consisting of only those positions which are silent across all strains. It is essentially the same as turning each column of each strain in the snp_comparison.txt file into a FASTA entry.</p>
+
+<p><code class="highlighter-rouge">snp2tree_fullsequence.pl snp_comparison.txt &gt; synonymous_tree.fasta</code></p>
+
+<p>Examine the contents of the tree.fasta file. We can then treat this file as an alignment (since each base in each sequence is at the same position on the chromosome) and pass it to a phylogeny program called FastTree. FastTree will take an input alignment and output a Newick formatted tree <a href="http://en.wikipedia.org/wiki/Newick_format">(http://en.wikipedia.org/wiki/Newick_format).</a> \</p>
+
+<p><code class="highlighter-rouge">FastTree -nt -gtr &lt; synonymous_tree.fasta &gt; synonymous_tree.newick</code></p>
+
+<p>Now we can visually view this tree by using an online tool.</p>
+
+<p><code class="highlighter-rouge">firefox http://www.trex.uqam.ca/index.php?action=newick</code></p>
+
+<p><img src="./05-part5-comparative-analysis_files/part5_04.png" alt=""></p>
+
+<p>Either paste the contents of the .newick file into the window or select ‘Sequences file’ and load the file through the browser. Then select ‘View Tree’</p>
+
+<p>Advanced task:</p>
+
+<p>Copy the snp2tree_fullsequence.pl script to this directory: (~/workshop_materials/genomics_tutorial/data/sequencing/Vibrio_parahaemolyticus/snp_comparison) and modify it so that it selects positions containing only non-silent mutations (not indels as these modify the alignment). Generate a new alignment and compare the resulting tree against the silent mutations.</p>
+
+<p>You will need to have some experience of programming in the Perl language to do this.</p>
+
+<p><img src="./05-part5-comparative-analysis_files/2017_Workshop_on_Genomics_FINAL-107_1.png" alt=""></p>
+
+
+
+  
+
+<div class="page-navigation">
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+     
+	    <a class="prev" href="https://biomedicalhub.github.io/genomics/04-part4-denovo-assembly.html">« Part 4. De-novo Assembly</a>
+    
+     
+      
+	    <a class="next" href="https://biomedicalhub.github.io/genomics/06-part6-long-read-assembly.html">» Part 6. Long Read Assembly</a>
+    
+  
+  
+
+  
+  
+
+</div> 
+
+</div>
+
+
+        
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  
+
+  
+
+
+<script>mendeleyWebImporter = {
+  downloadPdfs(e,t) { return this._call('downloadPdfs', [e,t]); },
+  open() { return this._call('open', []); },
+  setLoginToken(e) { return this._call('setLoginToken', [e]); },
+  _call(methodName, methodArgs) {
+    const id = Math.random();
+    window.postMessage({ id, token: '0.3319567026270025', methodName, methodArgs }, 'https://biomedicalhub.github.io');
+    return new Promise(resolve => {
+      const listener = window.addEventListener('message', event => {
+        const data = event.data;
+        if (typeof data !== 'object' || !('result' in data) || data.id !== id) return;
+        window.removeEventListener('message', listener);
+        resolve(data.result);
+      });
+    });
+  }
+};</script></body></html>
