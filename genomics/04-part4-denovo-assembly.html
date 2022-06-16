@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<!-- saved from url=(0070)https://biomedicalhub.github.io/genomics/04-part4-denovo-assembly.html -->
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Part 4. De-novo Assembly · Introduction to Genomics
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./04-part4-denovo-assembly_files/poole.css">
+  <link rel="stylesheet" href="./04-part4-denovo-assembly_files/syntax.css">
+  <link rel="stylesheet" href="./04-part4-denovo-assembly_files/lanyon.css">
+  <link rel="stylesheet" href="./04-part4-denovo-assembly_files/custom.css">
+  <link rel="stylesheet" href="./04-part4-denovo-assembly_files/css">
+  <link rel="stylesheet" href="./04-part4-denovo-assembly_files/font-awesome.min.css">
+
+  <!-- Icons -->
+<!--   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/genomicspublic/apple-touch-icon-precomposed.png"> -->
+  <!--link rel="shortcut icon" href="/genomics/public/favicon.ico"-->
+
+  <!-- RSS -->
+  <!--link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml"-->
+</head>
+
+  
+  <body class="sidebar-overlay">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+
+<a href="http://www.exeter.ac.uk/biomedicalhub/training/" target="exeter-biomedical-hub-training-page">
+  <div class="sidebar-logo">
+    <img style="margin-left:auto;margin-right:auto;margin-top:5px;" width="95%" src="./04-part4-denovo-assembly_files/uoe_logo_white_h128.png">
+  </div>
+</a>
+
+<div id="contact-list" style="text-align:center">
+    
+
+    
+
+    
+</div>
+<div id="contact-list" style="text-align:center">
+    
+    
+    
+</div>
+<div id="contact-list" style="text-align:center">
+    
+    <!--a href="/atom.xml">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x"></i>
+        <i class="fa fa-rss fa-stack-1x"></i>
+      </span>
+    </a-->
+</div>
+
+  <!--div class="sidebar-item">
+    <p>Exeter University Informatic Hub - Genomics Course</p>
+  </div-->
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/">Home</a>
+
+    <!--a class="sidebar-nav-item" href="/genomics/blog">Blog</a-->
+
+    
+
+    
+
+
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/00-welcome.html">
+             
+                Welcome
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/01-part1-introduction.html">
+             
+                1. Short Read: Introduction
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/02-part2-remapping.html">
+             
+                2. Short Read: Remapping
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html">
+             
+                3. Unmapped Read Assembly
+             
+          </a>
+    
+          <a class="sidebar-nav-item active " href="https://biomedicalhub.github.io/genomics/04-part4-denovo-assembly.html">
+             
+                4. De-novo Assembly
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/05-part5-comparative-analysis.html">
+             
+                5. Comparative Analysis
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/06-part6-long-read-assembly.html">
+             
+                6. Long Read Assembly
+             
+          </a>
+    
+
+    <!-- <a class="sidebar-nav-item" href="/archive/v.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      © 2019. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://biomedicalhub.github.io/genomics/" title="Home">Introduction to Genomics</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+          
+
+<div class="page-navigation">
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+     
+	    <a class="prev" href="https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html">« Part 3. Unmapped Read Assembly</a>
+    
+     
+      
+	    <a class="next" href="https://biomedicalhub.github.io/genomics/05-part5-comparative-analysis.html">» Part 5. Comparative Analysis</a>
+    
+  
+  
+
+  
+  
+
+  
+  
+
+</div> 
+
+<div class="page">
+	<h1 class="page-title">Part 4. De-novo Assembly</h1>
+	<h3 id="introduction">Introduction:</h3>
+
+<p>In this section of the workshop we will continue the analysis of a strain of <em>E.coli</em>. In the previous section we extracted those reads which did not map to the reference genome and assembled them. However, it is often necessary to be able to perform a de-novo assembly of a genome. In this case, rather than doing any remapping, we will start with the filtered reads we obtained in part 3 of the workshop.</p>
+
+<p>To do this we will a program called SPAdes to try to get the best possible assembly for a given genome. We will then generate assembly statistics and then produce some annotation via Pfam and BLAST.</p>
+
+<p><strong>Task 1: Start the Assembly</strong></p>
+
+<p>The assembly takes so the results have
+been <strong>pre-computed</strong> for you and are available in the directory</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/denovo_assembly
+</code></pre></div></div>
+
+<p>If you were to run the command it would be as follows:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spades.py -o denovo_assembly_rerun -1 E_Coli_CGATGT_L001_R1_001.filtered.fastq -2 E_Coli_CGATGT_L001_R2_001.filtered.fastq
+</code></pre></div></div>
+
+<p>This will create a directory called denovo_assembly_rerun to hold the results.</p>
+
+<p>**Assembly theory **</p>
+
+<p>We are using SPAdes <a href="http://cab.spbu.ru/software/spades/">(http://cab.spbu.ru/software/spades/)</a> to perform our assembly. It is a de Bruijn graph based assembler, similar to other short read assemblers like velvet <a href="https://www.ebi.ac.uk/~zerbino/velvet/">(https://www.ebi.ac.uk/~zerbino/velvet/)</a>. The advantage of SPAdes is that it does lot of error correction and checking before and after the assembly which improve the final result. A downside of SPAdes is that it was designed for assembling reads from a single cell and although it does a good job with DNA prepared from a community it can leave in some low coverage sequences which are likely to be artifacts.</p>
+
+<p>You can read more about the comparison here <a href="http://thegenomefactory.blogspot.co.uk/2013/08/how-spades-differs-from-velvet.html">http://thegenomefactory.blogspot.co.uk/2013/08/how-
+spades-differs-from-velvet.html</a></p>
+
+<p>SPAdes is also very easy to use - apart from telling it where your input files are the only parameter that you might want to choose is the length of k-mer.</p>
+
+<p><strong>K-mer length</strong></p>
+
+<p>Rather than store all reads individually which would be unfeasible for Illumina type datasets, de Bruijn assemblers convert each read to a series of k-mers and stores each k-mer once, along with information about how often it occurs and which other k-mers it links to. A short k-mer length (e.g. 21) reduces the chance that data will be missed from an assembly (e.g. due to reads being shorter than the k-mer length or sequencing errors in the k-mer), but can result in shorter contigs as repeat regions cannot be resolved.</p>
+
+<p>When using the Velvet assembler it is necessary to try a large combination of parameters to ensure that you obtain the ‘best’ possible assembly for a given dataset. There is even a program called VelvetOptimiser which does it for you. However, what ‘best’ actually means in the context of genome assembly is ill-defined. For a genomic assembly you want to try to obtain the lowest number of contigs, with the longest length, with the fewest errors. However, although numbers of contigs and longest lengths are easy to evaluate, it is extremely difficult to know what is or isn’t an error when sequencing a genome for the first time.</p>
+
+<p>SPAdes allows you to choose more than one k-mer length - it then performs an assembly for each k-mer and merges the result - trying to get the best of both worlds. It actually has some pre-calculated k-mer settings based on the length of reads you have, so you don’t even have to choose that.</p>
+
+<p>Let’s look at the assembly process in more detail:</p>
+
+<p>Description of k-mers:</p>
+
+<p>What are they? Let’s say you have a single read:</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task1_01.png" alt=""></p>
+
+<p>The set of k-mers obtained from this read with length 6 (i.e. 6-mers) would be obtained by taking the first six bases, then moving the window along one base, taking the next 6 bases and so-on until the end of the read. E.g:</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task1_02.png" alt=""></p>
+
+<p>You may well ask, ‘So what? How does that help?’ For a single read, it really doesn’t help. However let’s say that you have another read which is identical except for a single base:</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task1_03.png" alt=""></p>
+
+<p>Rather than represent both reads separately, we need only store the k-mers which differ and the number of times they occur. Note the ‘bubble’ like structure which occurs when a single base-change occurs. This kind of representation of reads is called a ‘k-mer graph’ (sometimes inaccurately referred to as a de-bruijn graph).</p>
+
+<p>Now let’s see what happens when we add in a third read. This is identical to the first read except for a change at another location. This results in an extra dead-end being added to the path.</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task1_04.png" alt=""></p>
+
+<p>The job of any k-mer based assembler is to find a path through the k-mer graph which correctly represents the genome sequence.</p>
+
+<p><em>Images courtesy of Mario Caccamo</em></p>
+
+<p>Description of coverage cutoff:</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task1_05.png" alt=""></p>
+
+<p>In the figure above, you can see that the coverage of various k-mers varies between 1x and 3x. The question is which parts of the graph can be trimmed or removed so that we avoid any errors. As the graph stands, we could output three different contigs as there are three possible paths through the graph. However, we might wish to apply a coverage cutoff and remove the top right part of the graph because it has only 1x coverage and is more likely to be an error than a genuine variant.</p>
+
+<p>In a real graph you would have millions of k-mers and thousands of possible paths to deal with. The best way to estimate the coverage cutoff in such cases is to look at the frequency plot of contig (node) coverage, weighted by length. In the example below you can see that contigs with a coverage below 7x or 8x occur very infrequently. As such it is probably a good idea to exclude those contigs which have coverage less than this - they are likely to be errors.</p>
+
+<p>Description of expected coverage:</p>
+
+<p>In the example below you can see a stretch of DNA with many reads mapping to it. There are two repetitive regions A1 and A2 which have identical sequence. If we try to assemble the reads without any knowledge of the true DNA sequence, we will end up with an assembly that is split into two or more contigs rather than one.</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task1_06.png" alt=""></p>
+
+<p>One contig will contain all the reads which did not fall into A1 and A2. The other will contain reads from both A1 and A2. As such the coverage of the repetitive contig will be twice as high as that of the non-repetitive contig.</p>
+
+<p>If we had 5 repeats we would expect 5x more coverage relative to the non-repetitive contig. As such, provided we know what level of coverage we expect for a given set of data, we can use this information to try and resolve the number of repeats we expect.</p>
+
+<p>A commonly used metric to describe the effectiveness of the assembly is called N50 - see
+<a href="http://en.wikipedia.org/wiki/N50_statistic">http://en.wikipedia.org/wiki/N50_statistic </a>for details.</p>
+
+<p><strong>Task 2: Checking the assembly</strong></p>
+
+<p>Change into the denovo_assembly directory:</p>
+
+<p><code class="highlighter-rouge">cd denovo_assembly</code></p>
+
+<p>Firstly we can filter out low coverage and very short contigs using a perl script:</p>
+
+<p><code class="highlighter-rouge">filter_low_coverage_contigs.pl &lt; contigs.fasta &gt; contigs.goodcov.fasta</code></p>
+
+<p>We will use QUAST again
+<a href="http://quast.sourceforge.net/quast">(http://quast.sourceforge.net/quast)</a> to generate some statistics on the assembly.</p>
+
+<p><code class="highlighter-rouge">quast.py --output-dir quast contigs.goodcov.fasta</code></p>
+
+<p>This will create a directory called quast and create some statistics on the assembly you produced.</p>
+
+<p><code class="highlighter-rouge">cat quast/report.txt</code></p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task2_01_new.jpg" alt=""></p>
+
+<p>You can see that there are 75 contigs in the assembly - so it is still far from complete. The N50 is 159K and the N75 is 95K so most of the assembly is in quite large contigs.
+This is fairly normal for a short read assembly - don’t expect complete chromosomes.</p>
+
+<p><strong>Task 3: Map reads back to assembly</strong></p>
+
+<p>A good check at this point is to map the original readsback to the contigs.fasta file and check that all positions are covered by reads. Amazingly it is actually possible for de-novo assemblers to generate contigs to which the original reads will not map.</p>
+
+<p>Here we will use BWA again to index the contigs.fasta file and remap the reads. This is almost identical to the procedure we followed during the alignment section, the only difference is that instead of aligning to the reference genome, we are aligning to our newly created reference.</p>
+
+<p>Make sure you are in the following directory:
+<code class="highlighter-rouge">cd ~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/denovo_assembly/</code></p>
+
+<p>Let’s create a subdirectory to keep our work separate</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir remapping_to_assembly
+cd remapping_to_assembly
+cp ../contigs.fasta .
+</code></pre></div></div>
+
+<p>Let’s start by indexing the contigs.fasta file. Type:<br>
+<code class="highlighter-rouge">bwa index contigs.fasta</code></p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task3_01.png" alt=""></p>
+
+<p>Once complete we can start to align the reads back to the contigs. Type (all on one line):</p>
+
+<p><code class="highlighter-rouge">bwa mem -t 2 contigs.fasta ../../E_Coli_CGATGT_L001_R1_001.filtered.fastq ../../E_Coli_CGATGT_L001_R2_001.filtered.fastq &gt; E_Coli_CGATGT_L001_filtered.sam</code></p>
+
+<p>Once complete we can convert the SAM file to a BAM file:</p>
+
+<p><code class="highlighter-rouge">samtools view -bS E_Coli_CGATGT_L001_filtered.sam &gt; E_Coli_CGATGT_L001_filtered.bam</code></p>
+
+<p>And then we can sort the BAM file:</p>
+
+<p><code class="highlighter-rouge">samtools sort -o E_Coli_CGATGT_L001_filtered.sorted.bam E_Coli_CGATGT_L001_filtered.bam</code></p>
+
+<p>Once completed, we can index the BAM file:</p>
+
+<p><code class="highlighter-rouge">samtools index E_Coli_CGATGT_L001_filtered.sorted.bam</code></p>
+
+<p>We can then (at last!) obtain some basic summary statistics using the samtools flagstat command:</p>
+
+<p><code class="highlighter-rouge">samtools flagstat E_Coli_CGATGT_L001_filtered.sorted.bam</code></p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task3_02_new.jpg" alt=""></p>
+
+<p>We can see here that very few of the reads do not map back to the contigs. Importantly 98% of reads are properly paired which gives us some indication that there are not too many mis-assemblies.</p>
+
+<p>Run qualimap to get some more detailed information (and some images)</p>
+
+<p><code class="highlighter-rouge">qualimap bamqc -outdir bamqc -bam E_Coli_CGATGT_L001_filtered.sorted.bam</code></p>
+
+<p><code class="highlighter-rouge">firefox bamqc/qualimapReport.html</code></p>
+
+<p>In the Chromosome stats section:</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task3_03_new.jpg" alt=""></p>
+
+<p>The larger of our contigs have a mean coverage of around 50 - which is what we would expect from our original alignment.</p>
+
+<p>There is one contig which has the size of 67128 and much higher coverage - this is exactly the same as the contig we found in the unmapped reads - a good indication that it is a separate sequence (remember we suspected a plasmid) and not integrated into the chromosome.</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task3_04_new.jpg" alt=""></p>
+
+<p>Let’s double check that by blasting these contigs against the unmapped assembly contigs from part 4:</p>
+
+<p><code class="highlighter-rouge">blastn -subject ../contigs.goodcov.fasta -query ../../unmapped_assembly/spades_assembly/contigs.fasta &gt; check_plasmid.blastn</code></p>
+
+<p>Open the file in a text editor:</p>
+
+<p><code class="highlighter-rouge">pluma check_plasmid.blastn</code></p>
+
+<p>and about 30% of the way down the file you should find: (hint use search/find)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Query= NODE_1_length_67364_cov_602.091
+
+Length=67364
+
+Subject= NODE_24_length_67128_cov_604.709
+
+Length=67128
+
+
+ Score = 1.164e+05 bits (63055),  Expect = 0.0
+ Identities = 63057/63058 (99%), Gaps = 0/63058 (0%)
+ Strand=Plus/Minus
+</code></pre></div></div>
+
+<p>This shows us that this contig exactly almost matches that in the unmapped assembly, strongly supporting that this is a plasmid sequence and not integrated into the chromosomes.</p>
+
+<p><strong>Task 4: View assembly in IGV</strong>
+Load up IGV<br>
+<code class="highlighter-rouge">igv.sh</code></p>
+
+<p>Click Genomes -&gt; Load Genome from File.  We are going to import the contigs we have assembled as the reference. Unlike the reference genome though, we have no annotation available. Make sure you select the contigs.goodcov.fasta file for the complete de novo assembly (not the unmapped reads assembly).</p>
+
+<p>Once loaded, click on File-&gt;Load From File select the E_Coli_CGATGT_L001_filtered.sorted.bam
+file. Again, make sure you load the file in the <strong>remapping_to_assembly</strong> directory.</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task4_01.png" alt=""></p>
+
+<p>Once loaded, explore some of the contigs in IGV. See if you can find anything unusual in any of the contigs.
+**
+Here is one to get you started - Select <em>NODE_3</em></p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task4_02_new.jpg" alt=""></p>
+
+<p>Why does the contig start and end in repetitive sequence (indicated by the coloured / white reads = low mapping quality)? You may need to zoom in to see the details. Think about what an assembler will do if it cannot uniquely assign reads.</p>
+
+<p>If an assembler cannot resolve these repetitive regions with paired-end reads or coverage information, it will generally be unable to assemble any further sequence for that contig. Therefore it is quite common to see contigs which start and end in sequence which is repeated elsewhere.</p>
+
+<p>Here is another - Select <em>NODE_48</em>.</p>
+
+<p>Right click on the reads and select view as pairs:</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task4_03_new.jpg" alt=""></p>
+
+<p>What do you think is going on here?
+Try blasting the contig sequence using BlastX at <a href="http://blast.ncbi.nlm.nih.gov/Blast.cgi">http://blast.ncbi.nlm.nih.gov/Blast.cgi </a> to identify which genes the contig contains. To obtain the sequence you can right click and select ‘Copy consensus sequence’</p>
+
+<p>You can also do the same for individual reads, but you need to un-select ‘View as pairs’ before right clicking on a read. You may lose track of the paired-end reads and find it easier to copy the read name before un-selecting ‘View as pairs’ and then and then pasting it into the ‘Select by name’ search box.</p>
+
+<p>You should find that the contig contains at least two phage genes. There appear to be at least two phages present, one which seems to be the full contig, the other with the red read-pairs seems to be missing the sequence in the middle of the contig.</p>
+
+<p><strong>Annotation of de-novo assembled contigs</strong></p>
+
+<p>We will now annotate the contigs using BLAST, Pfam and RAST as with the
+unmapped contigs.</p>
+
+<p><strong>Task 5: Obtain open reading frames</strong></p>
+
+<p>As before, we’ll call open reading frames within the de-novo assembly. Again, we will use codon table 11 which defines the bacterial codon usage table <a href="http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi">(http://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi)</a> and state that the sequences we are dealing with are not circular. We will also restrict the ORFs to just those sequences longer than 300 nucleotides (i.e. 100
+amino acids). We will store the results in file contigs.orf.fasta.</p>
+
+<p>Make sure you are in the denovo_assembly/ directory:</p>
+
+<p><code class="highlighter-rouge">getorf -table 11  -circular N -minsize 300 -sequence contigs.goodcov.fasta -outseq contigs.orf.fasta</code></p>
+
+<p><em>The following two tasks are optional. Be warned - the BLAST searches and RAST will take several days! I recommend you start these now and then these and proceed to Task 9.</em></p>
+
+<p><strong>Task 6 (Optional): Search open reading frames against NCBI non-redundant database</strong></p>
+
+<p>We can also search these open reading frames against the NCBI non-redundant database.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blastp -db ~/workshop_materials/genomics_tutorial/db/blast/nr -query contigs.orf.fasta -evalue 1e-06 -num_threads 4 -show_gis -num_alignments 10 -num_descriptions 10 -out contigs.orf.fasta.blastp
+</code></pre></div></div>
+
+<p><strong>Task 7 (Optional): Search contigs against NCBI non-redundant database</strong></p>
+
+<p>The following command executes a nucleotide BLAST search (blastn) of the sequences in the
+contigs.fasta file against the non-redundant database. Again we restrict ourselves to 10 results per hit and an e-value cutoff of 1e-06.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blastn -db ~/workshop_materials/genomics_tutorial/db/blast/nt -query contigs.fasta -evalue 1e-06 -num_threads 4 -show_gis -num_alignments 10 -num_descriptions 10 -out contigs.fasta.blastn
+</code></pre></div></div>
+
+<p><strong>Task 8 (Optional)</strong>
+Run the contigs through the RAST server and import the resulting GFF annotation into IGV (refer back to Part 3 for instructions).</p>
+
+<p><strong>Task 9: Run open reading frames through Pfam</strong></p>
+
+<p>As with the unmapped reads we will search the open reading frames against the Pfam HMM database of protein families. Later on we will be able to use these results to identify Pfam domains which are unique to a particular strain.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pfam_scan.pl -fasta contigs.orf.fasta -dir ~/workshop_materials/genomics_tutorial/db/pfam/ -outfile contigs.orf.pfam -cpu 2 -pfamB -as
+</code></pre></div></div>
+
+<p><em>This will take around 5 hours so it is recommended that you leave this running while continuing with the rest of the tutorial. If it is still running when you finish
+your session for today, leave your instance running overnight, but please be sure to turn it off in the morning!</em></p>
+
+<h2 id="hybrid-assembly">Hybrid Assembly</h2>
+
+<p>You will have seen that even with good coverage and a relatively long (300bp) paired end Illumina dataset - the assembly we get is still fairly fragmented. Our <em>E.coli</em> example assembles into 75 contigs and the largest contig is around 10% of the genome size.</p>
+
+<p>Why is this?</p>
+
+<p>One possible reason would be that regions of the original genome were not sequenced, or sequenced at too low coverage to assemble correctly. Regions of the genome will occur with different frequencies in the library that was sequenced - You can see this in
+the variation of coverage when you did the alignment. This can be due to inherent biases in the preparation and the random nature of the process.</p>
+
+<p>However as coverage increases the chances of not sequencing a particular region of the genome reduces and the most significant factor becomes the resolution of repeats within the assembly process. If two regions contain the same or very similar sequences the assembler cannot reliably detect that they are actually two or more distinct sequences and incorrectly ‘collapses’ the repeat into a single sequence. The assembler is now effectively missing a sequence and therefore breaks in the assembly occur.</p>
+
+<p>One resolution to this is to use a sequencing technology like PacBio or Sanger which can produce longer reads - the reads are then long enough to include the repeated sequence, plus some unique sequence, and the problem can be resolved. Unfortunately getting enough coverage using Sanger sequencing is expensive and PacBio - although relatively inexpensive has a high error rate.</p>
+
+<p>An approach becoming more and more popular is to combine technologies. For example: high quality Illumina sequencing to get the accuracy of reads combined with low quality PacBio sequencing to enable the repeats to be spanned and correctly resolved.</p>
+
+<p>Our exercise will be to use Illumina and PacBio datasets to assemble a species of <em>Pseudomonas</em>.
+These are subsets of data used in “Evaluation and validation of de novo
+and hybrid assembly techniques to derive high-quality genome sequences” Utturkar et al., 2014.
+<a href="http://www.ncbi.nlm.nih.gov/pubmed/24930142">(http://www.ncbi.nlm.nih.gov/pubmed/24930142)</a>.</p>
+
+<p>This paper also contains a good explanation of the process and different approaches that are available.</p>
+
+<p><strong>Note</strong> our example is not a particularly good dataset and the improvement is quite modest.</p>
+
+<p>Firstly, as always, it is important to check and understand the quality of the data you are working with:
+Change to the directory and run fastqc</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/workshop_materials/genomics_tutorial/data/sequencing/pseudomonas_gm41
+fastqc
+</code></pre></div></div>
+
+<p>Open the files SRR1042836a.fastq SRR491287a_1.fastq and SRR491287a_2.fastq and look at the re-
+ports generated.</p>
+
+<p>Note that the quality of the PacBio reads (SRR1042836a.fastq) is much lower than the Illumina reads with a greater than 1 chance in 10 of there being a mistake for most reads.</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task10_01.png" alt=""></p>
+
+<p>However, importantly, the length of the PacBio reads is much longer.</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task10_02.png" alt=""></p>
+
+<p>Trim the Illumina reads as before:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fastq-mcf ../../reference/adaptors/adaptors.fasta SRR491287a_1.fastq SRR491287a_2.fastq -o SRR491287a_1.filtered.fastq -o SRR491287a_2.filtered.fastq -q 20 -p 10 -u -x 0.01
+</code></pre></div></div>
+
+<p>You can check the number of filtered reads using grep -c and the quality of trimmed reads
+with fastqc if you want.</p>
+
+<p>For this exercise we want the long reads from PacBio even though they are low quality. We are relying on the assembler to use them appropriately.</p>
+
+<p><strong>Task 11: Illumina Only Assembly</strong></p>
+
+<p>Firstly let’s construct an assembly using only the available Illumina data.
+Make sure you are in the directory
+<code class="highlighter-rouge">cd ~/workshop_materials/genomics_tutorial/data/sequencing/pseudomonas_gm41</code></p>
+
+<p>and Run:</p>
+
+<p><code class="highlighter-rouge">spades.py --threads 2 --careful -o illumina_only_assembly -1 SRR491287a_1.filtered.fastq -2 SRR491287a_2.filtered.fastq</code></p>
+
+<p>This may take some time so the data has been precomputed and is available in illumina_assembly if you are impatient!</p>
+
+<p>Change to the directory:<br>
+<code class="highlighter-rouge">cd illumina_only_assembly</code></p>
+
+<p>Filter out low coverage and very short contigs using a perl script:<br>
+<code class="highlighter-rouge">filter_low_coverage_contigs.pl &lt; contigs.fasta &gt; contigs.goodcov.fasta</code></p>
+
+<p>Let’s look at the metrics for the assembly.<br>
+<code class="highlighter-rouge">quast.py --output-dir quast contigs.goodcov.fasta</code></p>
+
+<p><code class="highlighter-rouge">cat quast/report.txt</code></p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task11_01_new.jpg" alt=""></p>
+
+<p>Your results may be slightly different. This is because spades uses a random seed that changes every time</p>
+
+<p><strong>Task 12: Create Hybrid Assembly</strong></p>
+
+<p>Now will execute the same command, but this time include the longer PacBio reads to see the effect it has on our assembly. Change back into the directory<br>
+<code class="highlighter-rouge">cd ~/workshop_materials/genomics_tutorial/data/sequencing/pseudomonas_gm41</code></p>
+
+<p>Run (This may take some time so the data has been precomputed and is available in hybrid_assembly_pre/ if you are impatient!):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spades.py --threads 2 --careful -o hybrid_assembly --pacbio SRR1042836a.fastq -1 SRR491287a_1.filtered.fastq -2 SRR491287a_2.filtered.fastq
+</code></pre></div></div>
+
+<p>Change to the directory: <br>
+<code class="highlighter-rouge">cd hybrid_assembly</code></p>
+
+<p>Filter out low coverage and very short contigs using the perl script:<br>
+<code class="highlighter-rouge">filter_low_coverage_contigs.pl &lt; contigs.fasta &gt; contigs.goodcov.fasta</code></p>
+
+<p>Let’s look at the metrics for the assembly - this time we will compare it with the illumina only assembly:<br>
+<code class="highlighter-rouge">quast.py --output-dir quast contigs.goodcov.fasta ../illumina_only_assembly/contigs.goodcov.fasta</code></p>
+
+<p><code class="highlighter-rouge">cat quast/report.txt</code></p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task12_01_new.jpg" alt=""></p>
+
+<p><code class="highlighter-rouge">firefox quast/report.html</code></p>
+
+<p>It seems that using the longer reads has improved the completeness of our assembly - reducing the number of contigs. In truth, this is a very modest improvement, for bacteria it is difficult to find a dataset where the long reads help, without making the short reads redundant and assembling eukaryotes would take too long in the context of the course.</p>
+
+<p><strong>Task 13: Align reads back to reference</strong>
+Let’s realign our original reads back to the assembly and see what we have - refer to previous notes if you are unsure of the steps.</p>
+
+<p>Start in the hybrid assembly directory</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/workshop_materials/genomics_tutorial/data/sequencing/pseudomonas_gm41/hybrid_assembly
+mkdir remapping_to_assembly
+cd remapping_to_assembly
+cp ../contigs.fasta .
+bwa index contigs.fasta
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bwa mem -t 2 contigs.fasta ../../SRR491287a_1.filtered.fastq ../../SRR491287a_2.filtered.fastq &gt; gm41.illumina.sam
+samtools view -bS gm41.illumina.sam &gt; gm41.illumina.bam
+samtools sort -o gm41.illumina.sorted.bam gm41.illumina.bam  
+samtools index gm41.illumina.sorted.bam
+samtools flagstat gm41.illumina.sorted.bam
+</code></pre></div></div>
+
+<p>We can also map the PacBio reads, but we need to tell bwa we are using PacBio reads</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bwa mem -t 2 -x pacbio contigs.fasta ../../SRR1042836a.fastq &gt; gm41.pacbio.sam
+samtools view -bS gm41.pacbio.sam &gt; gm41.pacbio.bam
+samtools sort -o gm41.pacbio.sorted.bam  gm41.pacbio.bam  
+samtools index gm41.pacbio.sorted.bam
+samtools flagstat gm41.pacbio.sorted.bam
+</code></pre></div></div>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task13_01_new.jpg" alt=""></p>
+
+<p>You will notice that not such a high proportion of PacBio reads map back to the assembly.</p>
+
+<p>Now start igv:<br>
+<code class="highlighter-rouge">igv.sh</code></p>
+
+<p>Load your assembled genome - Click on genome - load from file</p>
+
+<p>Make sure you get the assembly from the hybrid_assembly (igv remembers the previous directory which may contain similar files.)</p>
+
+<p>Now load your 2 alignment files:<br>
+click on load from File and then select gm41.pacbio.sorted.bam and gm41.illumina.sorted.bam</p>
+
+<p>On the toolbar select - “Show Details on Click”</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task13_02.jpg" alt=""></p>
+
+<p>Find a region that has decent coverage of both reads and zoom in. (Region shown here: NODE_43_length_17566_cov_24.3317:8,699-8,867)</p>
+
+<p><img src="./04-part4-denovo-assembly_files/part4_task13_03_new.jpg" alt=""></p>
+
+<p>You can see that the PacBio reads are much longer, but the error rate particularly insertions and deletions is much higher than for the Illumina reads.</p>
+
+<p>Explore a few other contigs to see if you can find something that looks like an error or mis-assembly. Remember the assembly process is difficult and far from perfect.</p>
+
+<p><strong>Summary</strong></p>
+
+<p>You have seen that de-novo assembly of short reads is a challenging problem. Even for small genomes, the resulting assembly is fragmented into contigs and far from complete.</p>
+
+<p>Incorporating longer reads to produce a hybrid assembly can be used to reduce the fragmentation of the genome. We have only used a single (perhaps the simplest) technique to incorporate long reads.
+You can read more about hybrid assembly techniques here: <a href="http://www.ncbi.nlm.nih.gov/pubmed/24930142">http://www.ncbi.nlm.nih.gov/pubmed/24930142 </a></p>
+
+
+  
+
+<div class="page-navigation">
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+     
+	    <a class="prev" href="https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html">« Part 3. Unmapped Read Assembly</a>
+    
+     
+      
+	    <a class="next" href="https://biomedicalhub.github.io/genomics/05-part5-comparative-analysis.html">» Part 5. Comparative Analysis</a>
+    
+  
+  
+
+  
+  
+
+  
+  
+
+</div> 
+
+</div>
+
+
+        
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  
+
+  
+
+
+<script>mendeleyWebImporter = {
+  downloadPdfs(e,t) { return this._call('downloadPdfs', [e,t]); },
+  open() { return this._call('open', []); },
+  setLoginToken(e) { return this._call('setLoginToken', [e]); },
+  _call(methodName, methodArgs) {
+    const id = Math.random();
+    window.postMessage({ id, token: '0.9667567920357487', methodName, methodArgs }, 'https://biomedicalhub.github.io');
+    return new Promise(resolve => {
+      const listener = window.addEventListener('message', event => {
+        const data = event.data;
+        if (typeof data !== 'object' || !('result' in data) || data.id !== id) return;
+        window.removeEventListener('message', listener);
+        resolve(data.result);
+      });
+    });
+  }
+};</script></body></html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)https://biomedicalhub.github.io/genomics/06-part6-long-read-assembly.html -->
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Part 6. Long Read Assembly · Introduction to Genomics
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./06-part6-long-read-assembly_files/poole.css">
+  <link rel="stylesheet" href="./06-part6-long-read-assembly_files/syntax.css">
+  <link rel="stylesheet" href="./06-part6-long-read-assembly_files/lanyon.css">
+  <link rel="stylesheet" href="./06-part6-long-read-assembly_files/custom.css">
+  <link rel="stylesheet" href="./06-part6-long-read-assembly_files/css">
+  <link rel="stylesheet" href="./06-part6-long-read-assembly_files/font-awesome.min.css">
+
+  <!-- Icons -->
+<!--   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/genomicspublic/apple-touch-icon-precomposed.png"> -->
+  <!--link rel="shortcut icon" href="/genomics/public/favicon.ico"-->
+
+  <!-- RSS -->
+  <!--link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml"-->
+</head>
+
+  
+  <body class="sidebar-overlay">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+
+<a href="http://www.exeter.ac.uk/biomedicalhub/training/" target="exeter-biomedical-hub-training-page">
+  <div class="sidebar-logo">
+    <img style="margin-left:auto;margin-right:auto;margin-top:5px;" width="95%" src="./06-part6-long-read-assembly_files/uoe_logo_white_h128.png">
+  </div>
+</a>
+
+<div id="contact-list" style="text-align:center">
+    
+
+    
+
+    
+</div>
+<div id="contact-list" style="text-align:center">
+    
+    
+    
+</div>
+<div id="contact-list" style="text-align:center">
+    
+    <!--a href="/atom.xml">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x"></i>
+        <i class="fa fa-rss fa-stack-1x"></i>
+      </span>
+    </a-->
+</div>
+
+  <!--div class="sidebar-item">
+    <p>Exeter University Informatic Hub - Genomics Course</p>
+  </div-->
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/">Home</a>
+
+    <!--a class="sidebar-nav-item" href="/genomics/blog">Blog</a-->
+
+    
+
+    
+
+
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/00-welcome.html">
+             
+                Welcome
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/01-part1-introduction.html">
+             
+                1. Short Read: Introduction
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/02-part2-remapping.html">
+             
+                2. Short Read: Remapping
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html">
+             
+                3. Unmapped Read Assembly
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/04-part4-denovo-assembly.html">
+             
+                4. De-novo Assembly
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/05-part5-comparative-analysis.html">
+             
+                5. Comparative Analysis
+             
+          </a>
+    
+          <a class="sidebar-nav-item active " href="https://biomedicalhub.github.io/genomics/06-part6-long-read-assembly.html">
+             
+                6. Long Read Assembly
+             
+          </a>
+    
+
+    <!-- <a class="sidebar-nav-item" href="/archive/v.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      © 2019. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://biomedicalhub.github.io/genomics/" title="Home">Introduction to Genomics</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+          
+
+<div class="page-navigation">
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+     
+	    <a class="prev" href="https://biomedicalhub.github.io/genomics/05-part5-comparative-analysis.html">« Part 5. Comparative Analysis</a>
+    
+    
+  
+  
+
+</div> 
+
+<div class="page">
+	<h1 class="page-title">Part 6. Long Read Assembly</h1>
+	<h3 id="introduction">Introduction:</h3>
+
+<p>The latest third-generation sequencing platforms from Oxford Nanopore and Pacific Biosciences enable sequencing of <em>single DNA molecules.</em> Remember second generation sequencing platforms (e.g. Illumina) rely on sequencing a group of ~1000 mono-clonal molecules formed via PCR-like reactions. This has advantages in terms of reducing the quantity of DNA input required to enable sequencing, usually enables lower per-base costs, but has many shortcomings.</p>
+
+<p>In the case of Illumina, although the sequencer is capable of generating large quantities of data (terabases in the case of a HiSeq run), the amplification step introduces GC-biases and also
+places a maximum limit on the size of the fragments which can be sequenced since the amplification becomes inefficient at larger fragments sizes and sequencing becomes de-phased within individual mono-clonal clusters due to polymerase errors. In the case of genome assembly, this introduces fragmentation of the assembly in areas of low coverage or repetitive regions which cannot be spanned.</p>
+
+<p>Third generation sequencing of single molecules has the following features:</p>
+
+<ul>
+  <li>Ability to sequence native genomic DNA without limitations on size (100s kilobases are possible)</li>
+  <li>Higher single pass per-base error rates than second-generation sequencers</li>
+  <li>Higher per-base cost  than second-generation sequencing</li>
+  <li>Full length cDNA or amplicon sequencing</li>
+  <li>Some platforms such as the MinION from Oxford Nanopore hold the potential to enable portable sequencing and sequencing of other types of nucleic acid (e.g. RNA).</li>
+</ul>
+
+<h3 id="pacbio-sequencing">PacBio sequencing</h3>
+
+<p>You can watch a video outlining PacBio sequencing at <a href="http://sequencing.exeter.ac.uk/pacific-biosciences-overview/">http://sequencing.exeter.ac.uk/pacific-
+biosciences-overview/.</a></p>
+
+<p>Pacific Biosciences have two sequencing platforms - RSII and Sequel. The RSII is an older platform capable of generating around 750Mbases of data in 4-6 hours. The Sequel platform is the latest platform and in theory can generate up to 7G bases of data in a similar time frame. However the chemistry is still being refined and at present 4-5 Gbases is the maximum which should be expected.</p>
+
+<p>The Sequel platform is PacBio’s focus for development at the moment, with optics included on the chip rather than the instrument, PacBio aims to increase the number of Zero Mode Waveguides (ZMWs) to increase throughput without significant instrument modifications.</p>
+
+<p>PacBio SMRTcells (RSII left - Sequel right)
+<img src="./06-part6-long-read-assembly_files/part6_pacbio_01.jpg" alt=""></p>
+
+<p>PacBio Yield and read length distributions (RSII left - Sequel right)
+<img src="./06-part6-long-read-assembly_files/part6_pacbio_02.png" alt=""></p>
+
+<p>A typical genomic library preparation workflow is similar to that of Illumina sequencing with the difference that much higher molecular weight DNA is used and dumb-bell shaped adaptors are attached:</p>
+
+<p><img src="./06-part6-long-read-assembly_files/part6_pacbio_03.jpg" alt=""></p>
+
+<p><strong>An important note regarding PacBio data quality</strong></p>
+
+<p>PacBio libraries are circular. Because of this, a single polymerase can sequence the same piece of DNA several times. However, a balance exists between the DNA template length, polymerase life time (also known as polymerase read length) and read quality with PacBio data. The figure below illustrates this.</p>
+
+<p>A polymerase which is able to read for 10kb, could read a single 10kb template or, for example, it could read a 2kb template 5 times. The 2kb fragment, having been read 5 times, would be of much higher quality than the 10kb fragment.</p>
+
+<p><img src="./06-part6-long-read-assembly_files/part6_pacbio_04.jpg" alt=""></p>
+
+<p>Terminology which is important to understand with PacBio data is highlighted in above. A polymerase read refers to the complete set of basecalls associated with the polymerase sequencing the forward strand, adaptor, and reverse strand. Internally, we remove the adaptor sequences and provide the subreads (just the forward and reverse sequences of the template). These can be further analysed to produce circular consensus reads (CCS) if the enzyme has made more than 1 pass of the molecule.</p>
+
+<p>Most assembly programs require the subreads if utilizing PacBio data.</p>
+
+<p><strong>MinION sequencing technology:</strong></p>
+
+<p>This is a radically new sequencing technology based upon monitoring electrical current fluctuations associated with the translocation of single DNA molecules through nanopores embedded in a membrane. You can read more about the technology in detail <a href="https://nanoporetech.com/how-it-works">https://nanoporetech.com/how-it-works</a></p>
+
+<p>This is a remarkable technology which has the potential to supplant short-read sequencing, if the error rates can be brought down sufficiently. It has the advantage of being portable and of generating long fragment lengths.</p>
+
+<p><strong>A typical long read assembly pipeline:</strong></p>
+<ul>
+  <li>Generate and evaluate QC metrics</li>
+  <li>Perform an initial assembly with Minimap/Miniasm to check whether we have sufficient data</li>
+  <li>Check for any potential contamination in the Miniasm assemblies using Blast and Krona</li>
+  <li>Correct long reads via consensus alignment and assemble</li>
+  <li>Polish the assembly with Illumina or other short-read data</li>
+  <li>If necessary, attempt to circularize the genome correctly</li>
+  <li>Compare assemblies against the reference using Quast</li>
+  <li>Generate gene predictions and/or functional annotation</li>
+</ul>
+
+<p>We have provided you with data generated from the same strain of <em>E.coli</em> K12 MG1655 across three different platforms - Oxford Nanopore MinION, PacBio RSII and PacBio Sequel. The MinION data was generated and published by Nick Loman and Josh Quick whilst the PacBio data was generated at Exeter from the same material.</p>
+
+<p>We have provided you with data from both 1D and 2D libraries. Remember these are two different types of library preparation. A 1D library enables just the template strand of the DNA molecule to be read, whilst a 2D library enables both the template and complement strand to be sequenced. This means that a 2D library will be sequenced. (Recently <em>1D squared</em> has replaced the <em>2D</em> libraries)</p>
+
+<p>The datasets can be found in the directory:</p>
+
+<p>~/genomics_tutorial/long_read_tutorial/raw_data</p>
+
+<p><strong>Note</strong> that we have four datasets in total - Sequel, RSII, MinION 1D and MinION 2D the MinIon dataset consists of two fasta files. One is a 1D dataset and another is a 2D dataset. Note that typically MinION datasets are generated in a binary formatted file on a per-read basis which contain the current-levels and other data. However, for simplicity we have converted these into fasta files.</p>
+
+<p>We’ll  follow a similar analysis protocol for all 4 datasets (some are pre-generated).</p>
+
+<p><strong>Task 1 Generate basic statistics for each of these datasets</strong></p>
+
+<p>You can use the fasta_summary.pl script to do this for both fasta-formatted MinION datasets. It might take a while to compute, therefore we have pre-computed the results for you:</p>
+
+<p><code class="highlighter-rouge">fasta_summary.pl -i E_coli_K12_1D_R9.2.pass.fasta -o E_coli_K12_1D_summary -t read</code></p>
+
+<p><code class="highlighter-rouge">fasta_summary.pl -i E_coli_K12_2D_R9.0.pass.fasta -o E_coli_K12_2D_summary -t read</code></p>
+
+<p>~/workshop_materials/genomics_tutorial/long_read_tutorial/pre_computed_results/canu_assemblies/fasta_summaries</p>
+
+<p>For the PacBio data you can use the fastqc program as per the Illumina datasets you have looked at previously.</p>
+
+<p>The fasta_summary.pl script will generate several output files:</p>
+
+<ul>
+  <li><strong>stats.txt</strong> file contains text-data on the number of bases, longest read and other useful statistics.</li>
+  <li><strong>histograms_bins.dat.png</strong>  file is a picture file with a histogram of read lengths (you can use firefox to see the file).</li>
+</ul>
+
+<p><strong>Task 2: Compare the datasets</strong></p>
+
+<p>Note that unlike Illumina sequencers, the read lengths produced by these platforms are highly variable. The MinION datasets for example vary between 100bp and 140,000bp.</p>
+
+<p><img src="./06-part6-long-read-assembly_files/part6_task2_01.png" alt=""></p>
+
+<p>Note the relatively poor quality scores in the fastqc report for the PacBio sequences. These reflect the 10-12% raw single-pass per-base error rate of the polymerase. Similar error rates are observed in the MinION datasets. Note that <em>unlike</em> Illumina datasets, this error rate does not appreciably increase over the length of the read (although at very short or very long read lengths there are far fewer reads present which increase the variance estimates).</p>
+
+<p><img src="./06-part6-long-read-assembly_files/part6_task2_02.png" alt=""></p>
+
+<p><strong>Task 3: Evaluate the likelihood of obtaining a successful assembly using Minimap/Miniasm</strong></p>
+
+<p>This very useful assembler tries to assemble long-reads <em>without</em> trying to correct the reads. Although you would not want to use such an assembly without further correction, it provides a useful yardstick to determine whether a more computationally intensive assembly is likely to yield good results. You can read more here <a href="https://github.com/lh3/miniasm">https://github.com/lh3/miniasm.</a></p>
+
+<p>Because of limitations on the memory available to us, we’ll need to subset the data first, selecting a random 100,000 reads to use (note that this is not the best approach since we should really pick the longest 100,000 reads).</p>
+
+<p>The syntax can be a bit confusing, so here is an example using the RSII dataset to get you started. Each assembly should take about 5-10 mins.</p>
+
+<p>Create a new working directory in ~/workshop_materials/genomics_tutorial/long_read_tutorial called miniasm_assemblies</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/workshop_materials/long_read_tutorial
+mkdir miniasm_assemblies
+</code></pre></div></div>
+
+<p><img src="./06-part6-long-read-assembly_files/part6_task3_01.png" alt=""></p>
+
+<p>We’ll use the <em>seqtk</em> package from the same author as samtools to randomly select 100,000 reads from the raw dataset:</p>
+
+<p><code class="highlighter-rouge">seqtk sample ~/workshop_materials/genomics_tutorial/long_read_tutorial/raw_data/RSII_Ecoli_K12_subreads.fastq 100000 &gt; RSII_Ecoli_K12_subreads.subsampled.fastq</code></p>
+
+<p>Now we can ask minimap to calculate all the overlaps between those 100,000 reads and output the results in a compressed gzip file. Note that you will have to put the input reads (RSII_Ecoli_K12_subreads.subsampled.fastq) in  twice - since we are asking minimap to calculate the overlaps between <em>all</em> reads in the dataset:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minimap -Sw5 -L100 -m0 -t 2 RSII_Ecoli_K12_subreads.subsampled.fastq RSII_Ecoli_K12_subreads.subsampled.fastq | gzip -1 &gt; overlaps_RSII.paf.gz
+</code></pre></div></div>
+
+<p>Once complete, we can ask miniasm to create an assembly graph and find an assembly path through it:</p>
+
+<p><code class="highlighter-rouge">miniasm -f RSII_Ecoli_K12_subreads.fastq overlaps_RSII.paf.gz &gt; overlaps_RSII.gfa</code></p>
+
+<p><code class="highlighter-rouge">awk '/^S/{print "\&gt;"\$2"\\n"\$3}' overlaps_RSII.gfa | fold &gt; miniasm.PacBio_RSII.contigs.fasta</code></p>
+
+<p>Repeat this for the Sequel and MinION datasets and then use the QUAST package (quast.py) to compare the assemblies against the reference genome. You should use the same E.coli reference as you used for the Illumina assemblies.</p>
+
+<p>You should be able to open the report.html file in firefox or other web-browser to compare the assemblies. It should look somewhat similar to:</p>
+
+<p><img src="./06-part6-long-read-assembly_files/part6_task3_02.png" alt=""></p>
+
+<p>Note that your results will differ since you will have a different subset of reads. Minimap/miniasm does not correct reads prior to assembly. This means that the alignments to the reference are likely to be error prone. Note that even without this correction, the assembler is able to reconstruct the genome in (more or less) a single contig of 4.7Mb with just 100,000 reads! This bodes well for a more computationally intensive assembly which first corrects reads and highlights the power of long reads for de-novo assembly.</p>
+
+<p>If you wish you can subset the data with the <em>seqtk sample</em> and compare how the datasets assemble at different levels of coverage.</p>
+
+<p><strong>Task 4: Generate a corrected assembly with Canu (results pre-computed)</strong></p>
+
+<p>Canu is derived from the original Celera assembler used to assemble the human genome from Sanger data. It has been optimized for long-read PacBio and Nanopore data. You can read more at <a href="http://canu.readthedocs.io/en/stable/tutorial.html">http://canu.readthedocs.io/en/stable/tutorial.html.</a> A number of long read assemblers are available (including Nanopore-specific assemblers - a good review paper on this is:</p>
+
+<p><em>Chu J, Mohamadi H, Warren RL, Yang C, Bi-Rol I. Innovations and challenges in detecting long read overlaps: an evaluation of the state-of- the-art. Bioinformatics. 2016</em></p>
+
+<p>For now we will just use Canu as it is relatively straightforward to use. Here is an example command to assemble the RSII E.coli data. We have pre-computed the results for you for the MinION 2D, RSII and Sequel data.</p>
+
+<p>~/workshop_materials/genomics_tutorial/long_read_tutorial/pre_computed_results/canu_assemblies</p>
+
+<p>To save time, and provide a fairer comparison between platforms we will not use the MinION 1D data.</p>
+
+<p><code class="highlighter-rouge">canu -p canu_RSII -d canu_RSII genomeSize=4.7m  useGrid=False  -pacbio-raw RSII_Ecoli_K12_subreads.fastq</code></p>
+
+<p>Note that Canu will:</p>
+<ul>
+  <li>Correct reads by performing all-against-all alignments and taking a consensus</li>
+  <li>Overlap and trim reads</li>
+  <li>Generate an assembly</li>
+</ul>
+
+<p><strong>Task 5: Polish Canu assemblies with Illumina data using Pilon (results
+pre-computed)</strong></p>
+
+<p>Oxford Nanopore and MinION data suffer a tendency to introduce insertions or deletions into a sequence (even after read correction). This means that to obtain the highest per-base quality it is desirable to polish assemblies by aligning short reads using BWA and then using a tool such as Pilon <a href="https://github.com/broadinstitute/pilon/wiki">(https://github.com/broadinstitute/pilon/wiki)</a> to polish the assemblies.</p>
+
+<p>We have supplied you with pre-computed results. We’ll  use just the RSII data to illustrate an example set of commands. First let’s align the Illumina reads from the short-read section of the workshop using BWA.</p>
+
+<p>We need to create a reference for the PacBio RSII contigs:</p>
+
+<p><code class="highlighter-rouge">bwa index RSII_canu_contigs.fasta</code></p>
+
+<p>Now we need to align the Illumina reads against the contigs:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bwa mem -x pacbio -t 2 RSII_canu_contigs.fasta ../../../data/sequencing/ecoli_exeter/E_Coli_CGATGT_L001_R1_001.fastq ../.
+./../data/sequencing/ecoli_exeter/E_Coli_CGATGT_L001_R2_001.fastq   |   samtools sort -@ 2 -O
+bam -o RSII_canu_contigs_illumina_aligned.bam
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">samtools index RSII_canu_contigs_illumina_aligned.bam</code></p>
+
+<p>Now that we have aligned the Illumina data against the contigs we can run Pilon to correct the contigs where they differ from the Illumina reads.</p>
+
+<p><code class="highlighter-rouge">pilon --genome RSII_canu_contigs.fasta --frags RSII_canu_contigs_illumina_aligned.bam --changes
+--outdir RSII_canu_pilon_polished</code></p>
+
+<p>You can view the corrected contigs in RSII_canu_pilon_polished/pilon.fasta and the see a list of the changes which have been made in RSII_canu_pilon_polished/pilon.changes. Note that most changes correct indels and the much higher number of corrections made for the MinION assembly vs the PacBio assemblies  (46558 for MinION 2D vs 387 for RSII and 2247 for Sequel).</p>
+
+<p>We need to interpret these polished results with care. Remember we are using Illumina sequencing which contains all sorts of biases of its own thanks to amplification biases introduced by PCR and other artefacts. As such whilst we might be correcting some errors, we could be introducing Illumina biases into these assemblies. We’re also using Illumina reads which are not quite identical to the reference or the PacBio material which is also not ideal (but often the case
+in the real world!). We’ll  see the effect of this in the final task.</p>
+
+<p><strong>Task 6: Use Blast and Krona to confirm species present in the assembly (results pre-
+computed)</strong></p>
+
+<p>We can use BLAST to identify taxonomic hits to ensure that we have the correct species present and filter out any contigs resulting from control spike-in DNA or other contaminants. You can also use other tools to do this such as Kraken or Centrifuge.</p>
+
+<p>As the blast searches take some time, the results have been pre-computed for you in</p>
+
+<p><code class="highlighter-rouge">~/workshop_materials/genomics_tutorial/long_read_tutorial/pre_computed_results/krona_plot/</code></p>
+
+<p>but we have included the commands used below:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blastn -db ../../../db/blast/nt -query RSII_canu_pilon_polished.fasta  -outfmt 7 -evalue 1e-06 -out RSII_canu_pilon_polished.fasta.blastn.outfmt7 -num_threads 2
+</code></pre></div></div>
+
+<p>Once this has completed, we can import the results into Krona which is a neat little visualization tool for BLAST results.
+**
+<code class="highlighter-rouge">ktImportBLAST -i RSII_canu_pilon_polished.fasta.blastn.outfmt7 -o krona_blast_results.html</code></p>
+
+<p>These results can be visualized in a web-browser such as firefox.</p>
+
+<p>Note that the MinION data contains Lambda virus DNA which is used as a spike-in to some MinION runs. You can identify which contigs hit species of interest by clicking on the area of the pie chart you are interested in and then clicking on the ‘Count’ in the top right corner. This wil  give you the contig names which match to the virus as opposed to the bacteria.</p>
+
+<p><img src="./06-part6-long-read-assembly_files/part6_task6_01.png" alt=""></p>
+
+<p><strong>Task 7: Circularise assemblies using Circlator (results pre-computed)</strong></p>
+
+<p>Note that bacterial genomes are circular. As such we may end up mis-assembling the genome because it is circular. The circlator package <a href="https://github.com/sanger-pathogens/circlator/wiki/Minimus2-circularization-pipeline">(https://github.com/sanger/pathogens/circlator/wiki/Minimus2-circularization-pipeline)</a> attempts to correct this.</p>
+
+<p>In the circularized_results directory you will find the results of the circularization pipeline.</p>
+
+<p><strong>Task 8: Compare polished assemblies using Quast</strong></p>
+
+<p>Use quast.py to generate a report for the original Canu results (i.e. pre Illumina correction and
+circularization) and these corrected and circularized results. E.g (all on one line):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>quast.py -R ~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.fna MinION_2D_canu_pilon_polished.circularise.fasta
+~/workshop_materials/genomics_tutorial/long_read_tutorial/pre_computed_results/canu_assemblies/MinION_2D.contigs.fasta RSII_canu_pilon_polished_circularise.fasta ~/workshop_materials/genomics_tutorial/long_read_tutorial/pre_computed_results/canu_assemblies/
+RSII_canu_contigs.fasta Sequel_canu_pilon_polished.circularise.fasta
+~/workshop_materials/genomics_tutorial/long_read_tutorial/pre_computed_results/canu_assemblies/Sequel_canu_contigs.fasta
+</code></pre></div></div>
+
+<p>Look at the effect of the polishing step for each technology. Have a think about the following:</p>
+<ul>
+  <li>The PacBio reads have a higher mismatch error after polishing but a lower indel rate? (think about the possible effects of PCR amplification on GC-bias)</li>
+  <li>What about the total number of contigs for each platform?</li>
+  <li>How does the mis-match rate to the reference genome compare between the MinION and the PacBio platforms?</li>
+  <li>The Sequel platform used very early chemistry - how does it perform compared to the other platforms?</li>
+  <li>Which platform would you select if you wanted to use the assembly as a reference to perform variant calling against?</li>
+</ul>
+
+<h2 id="concluding-remarks">Concluding remarks:</h2>
+
+<p>Well done! If you have reached this far, you deserve a round of applause. You have completed some of the most common tasks in genomics. You can use the same machine and the same scripts to perform analysis of any dataset! If you need to transfer data to/from the instance a tutorial can be found at <a href="http://www.siteground.com/tutorials/ssh/ssh_winscp.htm">http://www.siteground.com/tutorials/ssh/ssh_winscp.htm</a></p>
+
+
+  
+
+<div class="page-navigation">
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+     
+	    <a class="prev" href="https://biomedicalhub.github.io/genomics/05-part5-comparative-analysis.html">« Part 5. Comparative Analysis</a>
+    
+    
+  
+  
+
+</div> 
+
+</div>
+
+
+        
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  
+
+  
+
+
+<script>mendeleyWebImporter = {
+  downloadPdfs(e,t) { return this._call('downloadPdfs', [e,t]); },
+  open() { return this._call('open', []); },
+  setLoginToken(e) { return this._call('setLoginToken', [e]); },
+  _call(methodName, methodArgs) {
+    const id = Math.random();
+    window.postMessage({ id, token: '0.7398973108820346', methodName, methodArgs }, 'https://biomedicalhub.github.io');
+    return new Promise(resolve => {
+      const listener = window.addEventListener('message', event => {
+        const data = event.data;
+        if (typeof data !== 'object' || !('result' in data) || data.id !== id) return;
+        window.removeEventListener('message', listener);
+        resolve(data.result);
+      });
+    });
+  }
+};</script></body></html>

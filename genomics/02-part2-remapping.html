@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://biomedicalhub.github.io/genomics/02-part2-remapping.html -->
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Part 2. Short Read Genomics: Remapping · Introduction to Genomics
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./02-part2-remapping_files/poole.css">
+  <link rel="stylesheet" href="./02-part2-remapping_files/syntax.css">
+  <link rel="stylesheet" href="./02-part2-remapping_files/lanyon.css">
+  <link rel="stylesheet" href="./02-part2-remapping_files/custom.css">
+  <link rel="stylesheet" href="./02-part2-remapping_files/css">
+  <link rel="stylesheet" href="./02-part2-remapping_files/font-awesome.min.css">
+
+  <!-- Icons -->
+<!--   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/genomicspublic/apple-touch-icon-precomposed.png"> -->
+  <!--link rel="shortcut icon" href="/genomics/public/favicon.ico"-->
+
+  <!-- RSS -->
+  <!--link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml"-->
+</head>
+
+  
+  <body class="sidebar-overlay">
+
+    <!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+     styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+
+<a href="http://www.exeter.ac.uk/biomedicalhub/training/" target="exeter-biomedical-hub-training-page">
+  <div class="sidebar-logo">
+    <img style="margin-left:auto;margin-right:auto;margin-top:5px;" width="95%" src="./02-part2-remapping_files/uoe_logo_white_h128.png">
+  </div>
+</a>
+
+<div id="contact-list" style="text-align:center">
+    
+
+    
+
+    
+</div>
+<div id="contact-list" style="text-align:center">
+    
+    
+    
+</div>
+<div id="contact-list" style="text-align:center">
+    
+    <!--a href="/atom.xml">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x"></i>
+        <i class="fa fa-rss fa-stack-1x"></i>
+      </span>
+    </a-->
+</div>
+
+  <!--div class="sidebar-item">
+    <p>Exeter University Informatic Hub - Genomics Course</p>
+  </div-->
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/">Home</a>
+
+    <!--a class="sidebar-nav-item" href="/genomics/blog">Blog</a-->
+
+    
+
+    
+
+
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/00-welcome.html">
+             
+                Welcome
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/01-part1-introduction.html">
+             
+                1. Short Read: Introduction
+             
+          </a>
+    
+          <a class="sidebar-nav-item active " href="https://biomedicalhub.github.io/genomics/02-part2-remapping.html">
+             
+                2. Short Read: Remapping
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html">
+             
+                3. Unmapped Read Assembly
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/04-part4-denovo-assembly.html">
+             
+                4. De-novo Assembly
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/05-part5-comparative-analysis.html">
+             
+                5. Comparative Analysis
+             
+          </a>
+    
+          <a class="sidebar-nav-item" href="https://biomedicalhub.github.io/genomics/06-part6-long-read-assembly.html">
+             
+                6. Long Read Assembly
+             
+          </a>
+    
+
+    <!-- <a class="sidebar-nav-item" href="/archive/v.zip">Download</a>
+    <a class="sidebar-nav-item" href="">GitHub project</a>
+    <span class="sidebar-nav-item">Currently v</span> -->
+  </nav>
+
+  <div class="sidebar-item">
+    <p>
+      © 2019. All rights reserved.
+    </p>
+  </div>
+</div>
+
+
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://biomedicalhub.github.io/genomics/" title="Home">Introduction to Genomics</a>
+            <small></small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+          
+
+<div class="page-navigation">
+
+  
+  
+
+  
+  
+
+  
+     
+	    <a class="prev" href="https://biomedicalhub.github.io/genomics/01-part1-introduction.html">« Part 1. Short Read Genomics: Introduction</a>
+    
+     
+      
+	    <a class="next" href="https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html">» Part 3. Unmapped Read Assembly</a>
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+</div> 
+
+<div class="page">
+	<h1 class="page-title">Part 2. Short Read Genomics: Remapping</h1>
+	<p>In this section of the workshop we will be analysing a strain of <em>E.coli</em> which was sequenced at Exeter.  It is closely related to the K-12 substrain MG1655 <a href="http://www.ncbi.nlm.nih.gov/nuccore/U00096">(http://www.ncbi.nlm.nih.gov/nuccore/U00096).</a>  We want to obtain a list of single nucleotide polymorphisms (SNPs), insertions/deletions (Indels) and  any genes which have been deleted.</p>
+
+<p><strong>Quality control</strong></p>
+
+<p>In this section of the workshop we will be learning about evaluating the quality of an Illumina MiSeq sequencing run. Sequencing data is usually delivered in FASTQ format and the process described here can be used with any FASTQ formatted file from any platform (e.g 454, Illumina, Ion Torrent, PacBio etc).</p>
+
+<p>2nd (and 3rd) generation sequencers produce vast quantities
+of data. A single Illumina MiSeq lane will produce over 10-Gbases of data. However, the error rates of these platforms are 10-100x higher than Sanger sequencing. They also have very different error profiles. Unlike Sanger sequencing, where the most reliable sequences tend to be in the middle, NGS platforms tend to be most reliable near the beginning of each read.</p>
+
+<p>Quality control usually involves:</p>
+<ul>
+  <li>Calculating the number of reads before quality control</li>
+  <li>Calculating GC content, identifying over-represented sequences</li>
+  <li>Remove or trim reads containing adaptor sequences</li>
+  <li>Remove or trim reads containing low quality bases</li>
+  <li>Calculating the number of reads after quality control</li>
+  <li>Rechecking GC content, identifying over-represented sequences</li>
+</ul>
+
+<p>Quality control is necessary because:</p>
+<ul>
+  <li>CPU time required for alignment and assembly is reduced</li>
+  <li>Data storage requirements are reduced</li>
+  <li>Reduce potential for bias in variant calling and/or de-novo assembly</li>
+</ul>
+
+<p><strong>Quality scores</strong></p>
+
+<p>Most quality scores are calculated using the Phred scale (<em>Ewing B, Green P<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=pubmed&amp;dopt=Abstract&amp;list_uids=9521922">: Basecalling of automated sequencer traces using phred. II. Error probabilities. </a></em> <em>Genome Research 8:186-194 (1998)</em>).</p>
+
+<p>Each base call has an associated base call quality which estimates chance that the base call is incorrect.</p>
+
+<p>Q10 = 1 in 10 chance of incorrect base call<br>
+Q20 = 1 in 100 chance of incorrect base call<br>
+Q30 = 1 in 1000 chance of incorrect base call<br>
+Q40 = 1 in 10,000 chance of incorrect base call</p>
+
+<p>For most 454, SoLID and Illumina runs you should see quality scores between Q20 and Q40. Note that these as only estimates of base-quality based on calibration runs performed by the manufacturer against a sample of known sequence with (typically) a GC content of 50%. Extreme GC biases and/or particular motifs or homopolymers can cause the quality scores to
+become unreliable. Accurate base qualities are an essential part in ensuring variant calls are correct. As a rough and ready rule we generally assume that with Illumina data anything less than Q20 is not useful data and should be excluded.</p>
+
+<p>Once you understand the FASTQ format try to work out what is happing to the quality scores here and why - A FASTQ entry consists of 4 lines:</p>
+
+<p><img src="./02-part2-remapping_files/part2_fastq_01.png" alt=""></p>
+
+<p><strong>line 1</strong> - A header line beginning with  ‘@’ containing information about the name of the sequencer, and  the position at which the originating cluster was
+located and whether it passed purity filters.<br>
+<strong>line 2</strong> - The DNA sequence of the read<br>
+<strong>line 3</strong> - A header line or line beginning with just ‘+’<br>
+<strong>line 4</strong> - Quality scores for each base encoded in ASCII format</p>
+
+<p>To reduce storage requirements, the FASTQ quality scores are stored as single characters and converted to numbers by obtaining the ASCII quality score and subtracting either 33 (or 64 for much older datasets). For example, the above FASTQ file is Sanger formatted and the character ! has an ASCII value of 33. Therefore the corresponding base would have a Phred quality score of 33-33=Q0 (i.e. totally unreliable). On the other hand a base with a quality score denoted by @ has an ASCII value of 64 and would have a Phred quality score of 64-33=Q31 (i.e. less than 1/1000 chance of being incorrect).</p>
+
+<p>Happily the community has pretty much standardized on base 33 encoding, but do be aware that older datasets may use a different offset for encoding.</p>
+
+<p>The first task when one receives sequencing data is to evaluate its quality and determine whether all the cash you have handed over was well-spent! To do this we will use the FastQC toolkit <a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">(http://www.bioinformatics.bbsrc.ac.uk/projects/fastqc/).</a> FastQC offers a graphical visualisation of QC metrics, but <strong>does not</strong> have the ability to filter data.</p>
+
+<p><strong>Task 1</strong>
+From your home directory change into the workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/ directory and list the directory contents. E.g.:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter
+ls -l
+</code></pre></div></div>
+<p><img src="./02-part2-remapping_files/part2_task1_01.png" alt=""></p>
+
+<p>Note that this is a paired-end run. As such there are two files:</p>
+<ul>
+  <li>one for read 1 (E_Coli_CGATGT_L001_R1_001.fastq)</li>
+  <li>and the other for the reverse read 2 (E_Coli_CGATGT_L001_R2_001.fastq)</li>
+</ul>
+
+<p>Reads from the same pair can be identified because they have the same header. Programs which use FASTQ files generally require that the read 1 and read 2 files have the reads in the same order. To view the first few headers we can use the head and grep commands:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>head E_Coli_CGATGT_L001_R1_001.fastq | grep MISEQ
+head E_Coli_CGATGT_L001_R2_001.fastq | grep MISEQ  
+</code></pre></div></div>
+
+<p><img src="./02-part2-remapping_files/part2_task1_02.png" alt=""></p>
+
+<p>The only difference in the headers for the two reads is the read number. Of course this is no guarantee that all the headers in the file are consistent. To get some more confidence repeat the above commands using ‘tail’ instead of ‘head’ to compare reads at the end of the files.</p>
+
+<p>You can also check that there is an identical number of reads in each file using cat, grep and wc -l:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat E_Coli_CGATGT_L001_R1_001.fastq | grep MISEQ | wc -l
+cat E_Coli_CGATGT_L001_R2_001.fastq | grep MISEQ | wc -l
+</code></pre></div></div>
+
+<p><strong>Task 2</strong></p>
+
+<p>Now, let’s start the fastqc program.<br>
+<code class="highlighter-rouge">fastqc</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task2_01.png" alt=""></p>
+
+<p>Load the E_Coli_CGATGT_L001_R1_001.fastq file from the
+workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter directory.
+ <img src="./02-part2-remapping_files/part2_task2_02.png" alt=""></p>
+
+<p>After a few minutes the program should finish analysing the FASTQ file.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task2_03.png" alt=""></p>
+
+<p>The fastqc program performs a number of tests which determines whether a green tick (pass), exclamation mark (warning) or red cross (fail) is displayed. However it is important to realise that fastqc has no knowledge of what your library is or should look like.</p>
+
+<p>All of its tests are based on a completely random library with 50% GC content. Therefore if you have a sample which does not match these assumptions, it may ‘fail’ the library. For example, if you have a high AT or high GC organism it may fail the per sequence GC content. If you have any barcodes or low complexity libraries (e.g. small RNA libraries) they may also fail some of the sequence complexity tests.</p>
+
+<p>The bottom line is that you need to be aware of what your library is and whether what fastqc is reporting makes sense for that type of library. In this case we have a number of errors and warnings which at first sight suggest there has been a problem - but don’t worry too much yet. Let’s go through them in turn.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task2_04.jpg" alt=""></p>
+
+<p><strong>Per Base Sequence Quality</strong> is one of the most important metrics. This view shows an overview of the range of quality values across all bases at each position in the FASTQ file.  Generally anything with a median quality score greater than Q20 is regarded as acceptable; anything above Q30 is regarded as ‘good’. For more details, see the help documentation in fastqc.</p>
+
+<p>In this case this check is red - and it is true that the quality drops off at the end of the reads. It is normal for read quality to get worse towards the end of the read. You can see that at 250 bases the quality is still very good, we will later trim off the low quality bases so reserve judgment for now.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task2_05.jpg" alt="">
+<strong>Per tile sequence quality</strong> is a purely technical view on the sequencing run, it is more important for the team running the sequencer. The sequencing flowcell is divided up into areas called cells. You can see that the read quality drops off in some cells faster than others. This maybe because of the way the sample flowed over the flowcell or a mark or smear on the lens of the optics.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task2_06.png" alt="">
+<strong>Per base sequence content</strong>
+For a completely randomly generated library with a GC content of 50% one expects that at any given position within a read there will be a 25% chance of finding an A, C, T or G base. Here we can see that our library satisfies these criteria, although there appears to be some minor bias at the beginning of the read. This may be due to PCR duplicates during amplification or during library preparation. It is
+unlikely that one will ever see a perfectly uniform distribution. See <a href="http://sequencing.exeter.ac.uk/guide-to-your-data/quality-control">http://sequencing.exeter.ac.uk/guide-to-your-data/quality-control </a>
+for examples of good vs bad runs as well as the fastqc help for more details.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task2_06.png" alt="">
+<strong>Sequence Duplication Levels</strong> In a library that covers a whole genome uniformly most sequences will occur only once in the final set. A low level of duplication may indicate a very high level of coverage of the target sequence, but a high level of duplication is more likely to indicate some kind of enrichment bias (e.g. PCR over- amplification).  This module counts the degree of duplication for every sequence in the set and creates a plot showing the relative number of sequences with different degrees of duplication.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task2_07.png" alt="">
+<strong>Overrepresented Sequences</strong>
+ This check for sequences that occur more frequently than expected in your data. It also checks any sequences it finds against a small database of known sequences. In this case it has found that a small number of reads 4000 out of 600000 appear to contain a sequence used in the preparation for the library. A typical cause is that the original DNA was shorter than the length of the read - so the sequencing overruns the actual DNA and runs in to the adaptors used to bind it to the flowcell.  At this level there is nothing to worry about - they will be trimmed in later stages.</p>
+
+<p>There are other reports available -  Have a look at them and at what the author of FastQC has to say.</p>
+
+<p><a href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules//">https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/ </a></p>
+
+<p>Remember the error and warning flags are his (albeit experienced) judgement of what typical data should look like. It is up to you to use some initiative and understand whether what you are seeing is typical for your dataset and how that might affect any analysis you are performing.</p>
+
+<p>Do the same for read 2 as we have for read 1. Open fastqc and analyse the read 2 file. Look at the various plots and metrics which are generated. How similar are they? Note that the number of reads reported in both files is identical. This is because if one read fails to pass the Illumina chastity filter, its partner is automatically excluded too.
+Overall, both read 1 and read 2 can be regarded as ‘good’ data-sets.</p>
+
+<p><strong>Quality filtering of Illumina data</strong></p>
+
+<p>In this section we will be filtering the data to ensure any low quality reads are removed and that any sequences containing adaptor sequences are either trimmed or removed altogether. To do this we will use the fastq-mcf program from the ea-utils package (available at <a href="https://expressionanalysis.github.io/ea-utils/">https://expressionanalysis.github.io/ea-utils/</a>).
+This package is remarkably fast and ensures that after filtering both read 1 and read 2 files are in the correct order.</p>
+
+<p><em>Note: Typically when submitting raw Illumina data to NCBI or EBI you would submit unfiltered data, so don’t delete your original fastq files!</em></p>
+
+<p><strong>A note on checking for contaminants:</strong></p>
+
+<p>A number of tools are available now which also enable to you to quickly search reads and assign them to particular species or taxonomic groups. These can serve as a quick check to make sure your samples or libraries are not contaminated with DNA from other sources. If you are performing a de-novo assembly for example and have unwittingly have DNA sequence present from multiple organisms, you will risk poor results and chimeric contigs.
+Some ‘contaminants’ can turn out to be inevitable by-products of sampling and DNA extraction. This is often the case with algae or other symbionts. In addition some groups have made some amazing discoveries such as the discovery of a third symbiont (which turned out to be a yeast) in lichen. <a href="http://science.sciencemag.org/content/353/6298/488.full">http://science.sciencemag.org/content/353/6298/488.full </a></p>
+
+<p>Some tools you can use to check the taxonomic classification of reads include We won’t do this now but will do an example in the final section of the workshop on long reads.</p>
+<ul>
+  <li><a href="https://ccb.jhu.edu/software/kraken/">Kraken</a></li>
+  <li><a href="https://ccb.jhu.edu/software/centrifuge/manual.shtml">Centrifuge</a></li>
+  <li><a href="https://github.com/blaxterlab/blobology">Blobology</a></li>
+  <li>Blast (in conjunction with sub-sampling your reads) and Krona to plot results</li>
+</ul>
+
+<p><strong>Task 3</strong></p>
+
+<p>Make sure you are in the correct directory:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/
+</code></pre></div></div>
+
+<p>We will execute the fastq-mcf program which performs both adaptor sequence trimming and low quality bases. To remove adaptor sequences, we need to supply the adaptor sequences to the program. A list of the most common adaptors used is given in the file:</p>
+
+<p>~/workshop_materials/genomics_tutorial/data/reference/adaptors/adaptors.fasta</p>
+
+<p>View it by typing:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>less ~/workshop_materials/genomics_tutorial/data/reference/adaptors/adaptors.fasta  
+</code></pre></div></div>
+
+<p><img src="./02-part2-remapping_files/part2_task3_01.png" alt=""></p>
+
+<p>Now to run the fastq-mcf program, type the following (all on one line):</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fastq-mcf ../../reference/adaptors/adaptors.fasta E_Coli_CGATGT_L001_R1_001.fastq E_Coli_CGATGT_L001_R2_001.fastq -o E_Coli_CGATGT_L001_R1_001.filtered.fastq -o E_Coli_CGATGT_L001_R2_001.filtered.fastq -C 1000000 -q 20 -p 10 -u -x 0.01
+</code></pre></div></div>
+<p><img src="./02-part2-remapping_files/part2_task3_02.png" alt=""></p>
+
+<p>While this is running enter the command fastq-mcf in another terminal and try to understand what the options we are using do. We have found that these parameters generally work well for Illumina data. If you would like to learn more about these options, you can look at the manual here: <a href="https://github.com/ExpressionAnalysis/ea-utils/blob/wiki/FastqMcf.md">https://github.com/ExpressionAnalysis/ea-utils/blob/wiki/FastqMcf.md</a>.</p>
+
+<p>In short we are using 1 million reads to form a model of the sequence quality and then applying the filters which remove bases with q-score less than 20, trims adaptors allowing up to 10% mismatch in the adaptor sequence, allowing only pass-filter reads (virtually all sequencing data is pass-filter these days, so this is just included to be safe) and trims back reads which contain more than 1% Ns until they contain 1% or less Ns.</p>
+
+<p>After a few minutes the filtering should be complete and you should see something similar to:</p>
+
+<p><img src="./02-part2-remapping_files/part2_task3_03.png" alt=""></p>
+
+<p>You can see that the trimming has been harsher on the R2 reads than on the R1 - this is generally to be expected in Illumina paired end runs. If we look at the sizes of the files produced:</p>
+
+<p><code class="highlighter-rouge">ls -l</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task3_04.png" alt=""></p>
+
+<p>You can see that the original files are exactly the same size, but the R2 filtered file is smaller than R1. Now count the lines in all the files:</p>
+
+<p><code class="highlighter-rouge">wc -l *.filtered.fastq</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task3_05.png" alt=""></p>
+
+<p>Although the reads have been trimmed differently - the number of reads in the R1 and R2 files are identical. This is required for all the tools we will use to analyse paired end data.</p>
+
+<hr>
+
+<p><strong>Task 4</strong></p>
+
+<p>Check the quality scores and sequence distribution in the fastqc program for the two filtered fastq files. You should notice very little change (since comparatively few reads were filtered).</p>
+
+<p>However, you should notice a significant improvement in quality and the absence of adaptor sequences.</p>
+
+<hr>
+
+<p><strong>Task 5</strong></p>
+
+<p>We can perform a quick check (although this by no means guarantees) that the sequences in read 1 and read 2 are in the same order by checking the ends of the two files and making sure that the headers are the same.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>head E_Coli_CGATGT_L001_R1_001.filtered.fastq | grep MISEQ
+head E_Coli_CGATGT_L001_R2_001.filtered.fastq | grep MISEQ
+tail E_Coli_CGATGT_L001_R1_001.filtered.fastq | grep MISEQ
+tail E_Coli_CGATGT_L001_R2_001.filtered.fastq | grep MISEQ
+</code></pre></div></div>
+<p><img src="./02-part2-remapping_files/part2_task5_01.png" alt=""></p>
+
+<p>Check the number of reads in each filtered file. They should be the same. To do this use the grep command to search for the number of times the header appears. E.g:</p>
+
+<p><code class="highlighter-rouge">grep -c MISEQ E_Coli_CGATGT_L001_R1_001.filtered.fastq</code></p>
+
+<p>Do the same for the E_Coli_CGATGT_L001_R2_001.filtered.fastq file.</p>
+
+<hr>
+
+<p><strong>Task 6</strong></p>
+
+<p><strong>Aligning Illumina data to a reference sequence</strong></p>
+
+<p>Now that we have checked the quality of our raw data, we can begin to align the reads against a reference sequence. In this way we can compare how the reference sequence and the strain we have sequenced compare.</p>
+
+<p>To do this we will be using a program called BWA (Burrows Wheeler Aligner <em>Li H. and Durbin R. (2009) Fast and accurate short read alignment with Burrows-Wheeler Transform. Bioinformatics, 25:1754-60.</em> ). This uses an algorithm called (unsurprisingly) Burrows Wheeler to rapidly map reads to the reference genome. BWA also allows for a certain number of mismatches to account for variants which may be present in strain 1 vs the reference genome. Unlike other alignment packages such as Bowtie (version 1) BWA allows for insertions or deletions as well.</p>
+
+<p>By mapping reads against a reference, what we mean is that we want to go from a FASTQ file listing lots of reads, to another type of file (which we’ll describe later) which lists the reads AND where/if it maps against the reference genome.</p>
+
+<p>The figure below illustrates what we are trying to achieve here. Along the top in grey is the reference sequence. The coloured sequences below indicate individual sequences and how they map to the reference. If there is a real variant in a bacterial genome we would expect that (nearly) all the reads would contain the variant at the relevant position rather than the same base as the reference genome. Remember that error rates for any single read on second generation platforms tend to be around 0.5-1%. Therefore a 300bp read is on average likely to contain at 2-3 errors.</p>
+
+<p>Let’s look at 2 potential sources of artefacts.</p>
+
+<p><strong>Sequencing error:</strong></p>
+
+<p><img src="./02-part2-remapping_files/part2_task6_01.png" alt=""></p>
+
+<p>The region highlighted in green above shows that most reads agree with the reference sequence (i.e. C-base). However, 2 reads near the bottom show an A-base. In this situation we can safely assume that the A-bases are due to a sequencing error rather than a genuine variant since the ‘variant’ has only one read supporting it. If this occurred at a higher frequency however, we would struggle to determine whether it was a genuine variant or an error.</p>
+
+<p><strong>PCR duplication:</strong></p>
+
+<p>The highlighted region red above shows where there appears to be a variant. A C-base is present in the reference and half the reads, whilst an A-base is present in a set of reads which all start at the same position.</p>
+
+<p>Is this a genuine difference or a sequencing or sample prep error? What do you think? If this was a real sample, would you expect all the reads containing an A to start at the same location?</p>
+
+<p>The answer is probably not. This ‘SNP’ is in fact probably an artefact of PCR duplication. I.e. the same fragment of DNA has been replicated many times more than the average and happens to contain an error at the first position. We can filter out such reads during after alignment to the reference (see later).</p>
+
+<p>Note that the entire region above seems to contain lots of PCR duplicates with reads starting at the same location. In the case of the region highlighted in red, this will likely cause a false SNP call. The area in green also contains PCR duplicates the As at these positions are probably either sequencing errors or errors introduced during PCR.</p>
+
+<p>It’s always important to think critically about any finding - don’t assume that whatever bioinformatic tools you are using are perfect. Or that you have used them perfectly.</p>
+
+<hr>
+
+<p><strong>Indexing a reference genome:</strong></p>
+
+<p>Before we can start aligning reads to a reference genome, the genome sequence needs to be indexed. This means sorting the genome into easily searched chunks.</p>
+
+<p><strong>Task 7</strong></p>
+
+<p>Generating an index file from the reference sequence</p>
+
+<p>Change directory to the reference directory, and list the files:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/workshop_materials/genomics_tutorial/data/reference/U00096/
+ls -l
+</code></pre></div></div>
+
+<p><img src="./02-part2-remapping_files/part2_task7_01.png" alt=""></p>
+
+<p>In this directory we have 2 files. U00096.fna is a FASTA file which contains the reference genome sequence. The U00096.gff file contains the annotation for this genome. We will use this later.</p>
+
+<p>First, let’s looks at the bwa command itself. Type:</p>
+
+<p><code class="highlighter-rouge">bwa</code></p>
+
+<p>This should yield something like:</p>
+
+<p><img src="./02-part2-remapping_files/part2_task7_02.png" alt=""></p>
+
+<p>BWA is actually a suite of programs which all perform different functions. We are only going to use two during this workshop, bwa index, bwa mem</p>
+
+<p>If we type:</p>
+
+<p><code class="highlighter-rouge">bwa index</code></p>
+
+<p>We can see more options for the bwa index command.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task7_03.png" alt=""></p>
+
+<p>By default bwa index will use the IS algorithm to produce the index. This works well for most genomes, but for very large ones (e.g. vertebrate) you may need to use bwtsw. For bacterial genomes the default algorithm will work fine.</p>
+
+<p>Now we will create a reference index for the genome using BWA:</p>
+
+<p><code class="highlighter-rouge">bwa index U00096.fna</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task7_04.png" alt=""></p>
+
+<p>If you now list the directory contents using the ‘ls’ command, you will notice that the BWA index program has created a set of new files. These are the index files BWA needs.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task7_05.png" alt=""></p>
+
+<hr>
+
+<p><strong>Task 8: Aligning reads to the indexed reference sequence.</strong></p>
+
+<p>Now we can begin to align read 1 and read 2 to the reference genome. First of all change back into the ~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/ directory and create a subdirectory to contain our remapping results.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/
+mkdir remapping_to_reference
+cd remapping_to_reference
+</code></pre></div></div>
+
+<p>Let’s explore the alignment options BWA MEM has to offer. Type:</p>
+
+<p><code class="highlighter-rouge">bwa mem</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task8_01.png" alt=""></p>
+
+<p>The basis format of the command is:</p>
+
+<p>Usage: bwa mem [options] <idxbase> <in1.fq> [in2.fq]</in1.fq></idxbase></p>
+
+<p>We can see that we need to provide BWA with a FASTQ files containing the raw reads (denoted by <in.fq> and <in2.fq>) to align to a reference file (unhelpfully this is listed as <idxbase>).</idxbase></in2.fq></in.fq></p>
+
+<p>There are also a number of options. The most important are</p>
+<ul>
+  <li>the maximum number of differences in the seed (-k i.e. the first 32 bp of the sequence vs the reference),</li>
+  <li>the number of processors the program should use (-t - our machine has 8 processors).</li>
+</ul>
+
+<p>Our reference sequence is in
+~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.fna</p>
+
+<p>Our filtered reads in:<br>
+~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/E_Coli_CGATGT_L001_R1_001.filtered.fastq<br>
+~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/E_Coli_CGATGT_L001_R2_001.filtered.fastq</p>
+
+<p>So to align our paired reads using processors and output to file E_Coli_CGATGT_L001_filtered.sam:</p>
+
+<p>type, all on one line:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bwa mem -t 8 ~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.fna ~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/E_Coli_CGATGT_L001_R1_001.filtered.fastq ~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/E_Coli_CGATGT_L001_R2_001.filtered.fastq &gt; E_Coli_CGATGT_L001_filtered.sam
+</code></pre></div></div>
+
+<p>There will be quite a lot of output but the end should look like:</p>
+
+<p><img src="./02-part2-remapping_files/part2_task8_02.png" alt=""></p>
+
+<p>Once the alignment is complete, list the directory contents and check that the alignment file is present.
+<code class="highlighter-rouge">ls -lh</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task8_03.png" alt=""></p>
+
+<p>Note: <code class="highlighter-rouge">ls -lh</code> outputs the size of the file in human readable format (780Mb in this case - don’t worry if yours are slightly different.</p>
+
+<p>The raw alignment is stored in what is called SAM format (Simple AlignMent format). It is in plain text format and you can view it if you wish using the ‘less’ command. Do not try to open the whole file in a text editor as you will likely run out of memory!</p>
+
+<p><code class="highlighter-rouge">less E_Coli_CGATGT_L001_filtered.sam</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task8_04.png" alt=""></p>
+
+<p>Each alignment line has 11 mandatory fields for essential alignment information
+such as mapping position, and a variable number of optional fields for flexible or aligner specific information. For further details as to what each field means see<a href="http://samtools.sourceforge.net/SAM1.pdf"> http://samtools.sourceforge.net/SAM1.pdf </a></p>
+
+<p><strong>Task 9: Convert SAM to BAM file</strong></p>
+
+<p>Before we can visualise the alignment however, we need to convert the SAM file to a BAM (Binary AlignMent format) which can be read by most software analysis packages. To do this we will use another suite of programs called samtools. Type:</p>
+
+<p><code class="highlighter-rouge">samtools view</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task9_01.png" alt=""></p>
+
+<p>We can see that we need to provide samtools view with a reference genome in FASTA format file (-T), the -b and -S flags to say that the output should be in BAM format and the input in SAM, plus the alignment file.</p>
+
+<p>Remember our reference sequence is in
+~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.fna</p>
+
+<p>Type (all on one line):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>samtools view -bS --threads 8 -T  ~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.fna E_Coli_CGATGT_L001_filtered.sam &gt; E_Coli_CGATGT_L001_filtered.bam
+</code></pre></div></div>
+
+<blockquote>
+  <p>Aside: Many commands can run in multiple processes often called threads, which will reduce the runtime of many commands - for samtools it is the the --threads option. Out of interest try a few different values. You can prefix your command with <code class="highlighter-rouge">time</code> to capture the runtime easily.<br>
+<code class="highlighter-rouge">samtools view -bS -T --threads xx ..etc..</code><br>
+try a few different values e.g. 4,8,16 - do you understand the pattern?</p>
+</blockquote>
+
+<p><code class="highlighter-rouge">ls -lh</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task9_02.png" alt=""></p>
+
+<p>It’s always good to check that your files have processed correctly if something goes wrong it’s better to catch it immediately.</p>
+
+<p>Note that the bam file is smaller than the sam file - this is to be expected as the binary format is more efficient.</p>
+
+<p><strong>Task 10: Sort BAM file</strong></p>
+
+<p>Once this is complete we then need to sort the BAM file so that the reads are stored in the order they appear along the chromosomes (don’t ask me why this isn’t done automatically….). We can do this using the samtools sort command.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>samtools sort --threads 8 E_Coli_CGATGT_L001_filtered.bam -o E_Coli_CGATGT_L001_filtered.sorted.bam
+</code></pre></div></div>
+
+<p>This will take another minute or so. Don’t forget to check the resulting file.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task10_01.png" alt=""></p>
+
+<p><strong>A note on piping BWA and samtools commands:</strong>
+In tasks 8-10 we aligned reads to the reference genome, converted SAM to BAM and then sorted the resulting BAM file. For clarity we have shown these as individual steps. However, in real-life, it is faster and easier to do these simultaneously using Unix pipes!</p>
+
+<p>E.g. (there is no need to do this)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bwa mem -t 2 ~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.fna ~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/E_Coli_CGATGT_L001_R1_001.filtered.fastq ~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/E_Coli_CGATGT_L001_R2_001.filtered.fastq &gt; E_Coli_CGATGT_L001_filtered.sam | samtools sort -O bam -o E_Coli_CGATGT_L001_filtered.sorted.bam
+</code></pre></div></div>
+
+<p><strong>Task 11: Remove suspected PCR duplicates</strong></p>
+
+<p>Especially when using paired-end reads, samtools can do a reasonably good job of removing potential PCR duplicates (see the first part of this workshop if you are unsure what this means).</p>
+
+<p>Again, samtools has a command to do this called rmdup.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>samtools rmdup E_Coli_CGATGT_L001_filtered.sorted.bam E_Coli_CGATGT_L001_filtered.sorted.rmdup.bam
+</code></pre></div></div>
+
+<p><img src="./02-part2-remapping_files/part2_task11_01.png" alt=""></p>
+
+<p>You will notice some warnings about inconsistent BAM file for pair - this is just a warning that a pair of reads does not align together on the genome within the expected tolerance - it is normal to expect some of these, and you can ignore.</p>
+
+<p><strong>Task 12: Index the BAM file</strong></p>
+
+<p>Most programs used to view BAM formatted data require an index file to locate the reads mapping to a particular location quickly. You can think of this as an index in a book, telling you where to go to find particular phrases or words. We’ll use the samtools index command to do this.</p>
+
+<p><code class="highlighter-rouge">samtools index E_Coli_CGATGT_L001_filtered.sorted.rmdup.bam</code></p>
+
+<p>We should obtain a .bai file (known as a BAM-index file).
+<img src="./02-part2-remapping_files/part2_task12_01.png" alt=""></p>
+
+<hr>
+
+<p><strong>Task 13: Obtain mapping statistics</strong></p>
+
+<p>Finally we can obtain some summary statistics.</p>
+
+<p><code class="highlighter-rouge">samtools flagstat E_Coli_CGATGT_L001_filtered.sorted.rmdup.bam &gt; mappingstats.txt</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task13_01.png" alt=""></p>
+
+<p>This should only take a few seconds. Once complete view the mappingstats.txt file using a text-editor (e.g. gedit or nano) or the ‘more’ command.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task13_02.png" alt=""></p>
+
+<p>So here we can see we have 1250574 reads in total, none of which failed QC.
+71.88% of reads mapped to the reference genome and 71.55% mapped with the expected 500-600bp distance between them. 1414 reads could not have their read-pair mapped.</p>
+
+<p>0 reads have mapped to a different chromosome than their pair (0 has a mapping quality &gt; 5 - this is a Phred scaled quality score much as we say in the FASTQ files). If there were any such reads they would likely due to repetitive sequences (e.g phage insertion sites) or an insertion of plasmid or phage DNA into the main chromosome.</p>
+
+<hr>
+
+<p><strong>Task 14: Cleanup</strong>
+We have a number of leftover intermediate files which we can now remove to save space.</p>
+
+<p>Type (all on one line):</p>
+
+<p><code class="highlighter-rouge">rm E_Coli_CGATGT_L001_filtered.sam E_Coli_CGATGT_L001_filtered.bam E_Coli_CGATGT_L001_filtered.sorted.bam</code></p>
+
+<p>In case you get asked if you are sure to remove 3 arguments type in ‘yes’ and hit enter. You should now be left with the processed alignment file, the index file
+and the mapping stats.</p>
+
+<p>Well done! You have now mapped, filtered and sorted your first whole
+genome data-set! Let’s take a look at it!</p>
+
+<hr>
+
+<p><strong>Task 15: QualiMap</strong></p>
+
+<p>Qualimap (http://qualimap.bioinfo.cipf.es/) is a program that summarises the alignment in much more detail than the mapping stats file we
+produced. It’s a technical tool which allows you to assess the sequencing for any problems and biases in the sequencing and the alignment rather than a tool to deduce biological features.</p>
+
+<p>There are a few options to the program, We want to run bamqc. Type: <br>
+<code class="highlighter-rouge">qualimap bamqc</code><br>
+to get some help on this command.</p>
+
+<p>To get the report, first make sure you are in the directory:
+~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/remapping_to_reference
+then run the command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>qualimap bamqc -outdir bamqc -bam E_Coli_CGATGT_L001_filtered.sorted.rmdup.bam -gff ~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.gff
+</code></pre></div></div>
+
+<p>this creates a subfolder called bamqc</p>
+
+<p><img src="./02-part2-remapping_files/part2_task15_01.png" alt=""></p>
+
+<p>cd to this directory and run<br>
+<code class="highlighter-rouge">firefox qualimapReport.html</code></p>
+
+<p>There is a lot in the report so just a few highlights:</p>
+
+<p><img src="./02-part2-remapping_files/part2_task15_02.jpg" alt=""></p>
+
+<p>This shows the numbe  of reads that ‘cover’ each section of the genome. The red line shows a
+rolling average around 50x - this means that on average every part of the genome was sequenced 50X. It is important to have sufficient depth of coverage in order to be confident that any features you find in your data are real and not a result of sequencing errors.</p>
+
+<p>What do you think the regions of low/zero coverage correspond to?</p>
+
+<p><img src="./02-part2-remapping_files/part2_task15_03.jpg" alt=""></p>
+
+<p>The Insert Size Histogram displays the range of sizes of the DNA fragments. It shows how well your DNA was size selected before sequencing. Note that the ‘insert’ refers to the DNA that was inserted between the sequencing adaptors, so equates to the size range of the DNA that was used. In this case we have 300 paired end reads and our insert size varies around 600 bases - so there should only be a small gap between the reads that was not sequenced.</p>
+
+<p>Have a look at some of the other graphs produced.</p>
+
+<p><strong>Task 16: Load the Integrative Genomics Viewer</strong></p>
+
+<p>The Integrative Genome Viewer (IGV) is a tool developed by the Broad Institute for browsing interactively the alignment data you produced. It has a wealth of features and we can only cover some basics to get you started. Go to http://www.broadinstitute.org/igv/ to get more information.</p>
+
+<p>In your terminal, type <code class="highlighter-rouge">igv.sh</code> Or you can click the icon on the desktop.
+IGV viewer should appear:</p>
+
+<p><img src="./02-part2-remapping_files/part2_task16_01.png" alt=""></p>
+
+<p>Notice that by default a human genome has been loaded.</p>
+
+<p><strong>Task 17: Import the E.coli U0009 reference genome to IGV</strong></p>
+
+<p>By default IGV does not contain our reference genome. We’ll need to
+import it.</p>
+
+<p>Click on ‘Genomes -&gt;Create .genome file…’</p>
+
+<p><img src="./02-part2-remapping_files/part2_task17_01.png" alt=""></p>
+
+<p>Enter the information above and click on ‘OK’ .</p>
+
+<p>IGV will ask where it can save the genome file. Your home
+directory will be fine.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task17_02.png" alt=""></p>
+
+<p>Click ‘Save’ again.</p>
+
+<p>Note that the genome and the annotation have now been imported.
+<img src="./02-part2-remapping_files/part2_task17_03.png" alt="">
+<img src="./02-part2-remapping_files/part2_task17_04.png" alt=""></p>
+
+<p><strong>Task 18: Load the BAM file</strong></p>
+
+<p>Load the alignment file. Note that IGV requires the .bai index file to
+also be in the same directory.</p>
+
+<p>Select File… and Load From File</p>
+
+<p><img src="./02-part2-remapping_files/part2_task18_01.png" alt=""></p>
+
+<p>Select the bam file and click open</p>
+
+<p>Once loaded your screen should look similar to the following. Note that you can load more BAM files if you wish to compare different samples or the results of different mapping programs.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task18_02.png" alt=""></p>
+
+<p>Select the chromosome U00096.3 if it is not already selected</p>
+
+<p><img src="./02-part2-remapping_files/part2_task18_03.jpg" alt=""></p>
+
+<p>Use the +/- keys to zoom in or use the zoom bar at the top right of the screen to zoom into about 1-2kbases as below:</p>
+
+<p><img src="./02-part2-remapping_files/part2_task18_04.png" alt=""></p>
+
+<p>Right click on the main area and select view as pairs</p>
+
+<p><img src="./02-part2-remapping_files/part2_task18_05.jpg" alt=""></p>
+
+<p>The gray graph at the top of the figure indicates the coverage of the genome:</p>
+
+<p><img src="./02-part2-remapping_files/part2_task18_06.png" alt=""></p>
+
+<p>The more reads mapping to a certain location, the higher the peak on the graph. You’ll see a coloured line of blue, green or red in this coverage plot if there are any SNPs (single-nucleotide polymorphisms) present (there are none in the plot).</p>
+
+<p>If there are any regions in the genome which are not covered by the reads, you will see these as gaps in the coverage graph. Sometimes these gaps are caused by repetitive regions; others are caused by genuine insertions/deletions in your new strain with respect to the reference.</p>
+
+<p>Below the coverage graph is a representation of each read pair as it is mapped to the genome. One pair is highlighted.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task18_07.png" alt=""></p>
+
+<p>This pair consists of 2 reads with a gap (there may be no gap if the reads overlap) Any areas of mismatch either due to inconsistent distances between paired-end reads or due to differences between the reference and the read and are highlighted by a colour. The brighter the colour, the higher the base-calling quality is estimated to be. Differences in a single read are likely to be sequencing errors. Differences consistent in all reads are likely to be mutations.</p>
+
+<p>Hover over a read to get detailed information about the reads’ alignment:</p>
+
+<p><img src="./02-part2-remapping_files/part2_task18_08.jpg" alt=""></p>
+
+<p>You don’t need to understand every value, but compare this to the SAM format to get an idea of what is there.</p>
+
+<p><strong>SNPs and Indels</strong></p>
+
+<p>The following 3 tasks are open-ended. Please take your time with these. Read the examples on the following page if you get stuck.</p>
+
+<p><strong>Task 19: Read about the alignment display format</strong></p>
+
+<p>Visit<a href="http://www.broadinstitute.org/software/igv/AlignmentData"> http://www.broadinstitute.org/software/igv/AlignmentData
+</a></p>
+
+<p><strong>Task 20: Manually identify a region without any reads mapping.</strong></p>
+
+<p>It can be quite difficult to find even with a very small genome. Zoom out as far as you can and still see the reads. Use the coverage plot from QualiMap to try to find it. Are there genes associated?</p>
+
+<p>Because of the way IGV handles BAM files, it will not display coverage information if you zoom out too far. To get coverage information across the entire genome, regardless of how far you are zoomed out. You’ll  need to create a TDF file which contains a coverage information across windows of X number of bases across the genome. You can do this within IGV:</p>
+
+<p>Select Tools-&gt;Run igvtools:</p>
+
+<p><img src="./02-part2-remapping_files/part2_task20_01.png" alt=""></p>
+
+<p>Now load the BAM alignment file in the Input field and click Run:</p>
+
+<p><img src="./02-part2-remapping_files/part2_task20_02.png" alt=""></p>
+
+<p>Once completed, you can load this TDF file as by:</p>
+
+<p>Select File -&gt; Load from file</p>
+
+<p>Select the TDF file you have just created.</p>
+
+<p>You should then see the extra coverage track which remains visible
+even after you zoom out.+</p>
+
+<p><img src="./02-part2-remapping_files/part2_task20_03.png" alt=""></p>
+
+<p>Again try to use the QualiMap report to give you an idea. What is this region? Is there a gene close-by? What do you think this is? (Think about repetitive sequences, what does BWA do if a region in the genome has been duplicated)</p>
+
+<p><strong>Task 21: Identify SNPs and Indels manually</strong></p>
+
+<ul>
+  <li>Can you find any SNPs?</li>
+  <li>Which genes (if any) are they in?</li>
+  <li>How reliable do they look? (Hint: look at the number of reads mapping, their orientation - which strand they are on and how bright the base calls are).</li>
+</ul>
+
+<p>Zoom in to maximum magnification at the site of the SNP. Can you determine whether a SNP results in a synonymous (i.e. silent) or non-synonymous change in the amino acid? Can you use PDB <a href="http://www.rcsb.org/pdb/home/home.do">(http://www.rcsb.org/pdb/home/home.do)</a> or other resources to determine whether or not this occurs in a catalytic site or other functionally crucial region? (Note this may not always be possible).</p>
+
+<p>What effect do you think this would have on the cell?</p>
+
+<p>Here are some regions where there are differences in the organism sequenced and the reference: Can you interpret what has happened to the genome of our strain? Try to work out what is going on yourself before looking at the comment</p>
+
+<p>Paste each of the genomic locations in this box and click go
+<img src="./02-part2-remapping_files/part2_task21_01.png" alt=""></p>
+
+<p>U00096.3:2,108,392-2,133,153</p>
+
+<p>U00096.3:3,662,049-3,663,291</p>
+
+<p>U00096.3:4,296,249-4,296,510</p>
+
+<p>U00096.3:565,965-566,489</p>
+
+<p><strong>Region U00096.3:2,108,392-2,133,153</strong></p>
+
+<p><img src="./02-part2-remapping_files/part2_task21_02.png" alt=""></p>
+
+<p>This area corresponds to the drop in coverage identified by Qualimap. It looks like a fairly large region of about 17K bases which was present in the reference and is missing from our sequenced genome. It looks like about 12 genes from the reference strain are not present in our strain - it this real or an artefact?</p>
+
+<p>Well it is pretty conclusive we have coverage of about 60X either side of the deletion and nothing at all within. There are nice clean edges to the start and end of the deletion. We also have paired reads which span the deletion. This is exactly what you would expect if the two regions of coverage were actually joined together.</p>
+
+<p><strong>Region U00096.3:3,662,049-3,663,291</strong></p>
+
+<p><img src="./02-part2-remapping_files/part2_task21_03.png" alt=""></p>
+
+<p>Zoom right in until you can see the reference sequence and protein sequence at the bottom of the display.</p>
+
+<p>The first thing to note is that only discrepancies with respect to the reference are shown. If a read is entirely the same as its reference, it will appear entirely grey. Blue and red blocks indicate the presence of an ‘abnormal’ distance between paired-end reads. Note that unless this is consistent across most of the reads at a given position, it is not significant.</p>
+
+<p>Here we have a C-&gt;T SNP. This changes the codon from CAG-&gt;TAG (remember to check what strand the gene is on this one is on the forward strand, if it was on the reverse strand you would have to take the reverse complement of the codon to interpret the amino acid it codes for.) and results in a Gln-&gt;Stop mutation in the final protein product which is very likely to change the effect of the protein product.</p>
+
+<p>Hover over the gene to get some more information from the annotation…</p>
+
+<p><img src="./02-part2-remapping_files/part2_task21_05.jpg" alt=""></p>
+
+<p>Since it is a drug resistance protein it could be very significant.</p>
+
+<p>One additional check is that the SNPs occur when reading the forward strand. We can check this by looking at the direction of the grey reads,or by hovering over the coverage graph - see previous diagram. We can see that approximately half of the bases reporting the C-&gt;T mutation occur in read 1 (forward arrow), and half in read 2 (reverse arrow). This adds confidence to the base-call as it reduces the likelihood of this SNP being the result of a PCR duplication error.</p>
+
+<p>Note that sequencing errors in Illumina data are quite common (look at the odd bases showing up in the screen above. We rely on depth of sequencing to average out these errors. This is why people often mention that a minimum median coverage of 20-30x across the genome is required for accurate SNP-calling with Illumina data. This is not necessarily true for simple organisms such as prokaryotes, but for diploid and polyploid organisms it becomes important because each position may have one, two or many alleles changed.</p>
+
+<p><strong>Region U00096.3:4,296,249-4,296,510</strong></p>
+
+<p>Much the same guidelines apply for indels as they do for SNPs. Here we have an insertion of two bases CG in our sample compared to the reference. Again, we can see how much confidence we have that the insertion is real by checking that the indel is found on both read 1 and read 2 and on both strands.</p>
+
+<p>The insertion is signified by the presence of a purple bar. Hover your mouse over it to get more details as below</p>
+
+<p><img src="./02-part2-remapping_files/part2_task21_06.jpg" alt=""></p>
+
+<p>We can hover our mouse over the reference sequence to get details of the gene. We can see that it occurs in a repeat region and is unlikely to have very significant effects.</p>
+
+<p>One can research the effect that a SNP or Indel may have by finding the relevant gene at <a href="http://www.uniprot.org/">http://www.uniprot.org </a>(or google ‘mdtF uniprot’ in the previous case).</p>
+
+<p>It should be clear from this quick exercise that trying to work out where SNPs and Indels are manually is a fairly tedious process if there are many mutations. As such, the next section will look at how to obtain spread-sheet friendly summary details of these.</p>
+
+<p><strong>Region U00096.3:565,965-566,489</strong></p>
+
+<p>This last region is more complex try to understand what genomic mutation could
+account for this pattern - discuss with a colleague or an instructor.</p>
+
+<hr>
+
+<p><strong>Recap: SNP/Indel identification</strong></p>
+
+<ul>
+  <li>Only changes from the reference sequence are displayed in IGV</li>
+  <li>Genuine SNPs/Indels should be present on both read 1 and read 2</li>
+  <li>Genuine SNPs/Indels should be present on both strand</li>
+  <li>Genuine SNPs/Indels should be supported by a good (i.e. 20-30x) depth of coverage</li>
+  <li>Very important mutations (i.e. ones relied upon in a paper) should be confirmed e.g. using PCR.</li>
+</ul>
+
+<p><strong>Task 22: Identify SNPs and Indels using automated variant callers</strong></p>
+
+<p>Viewing alignments is useful when convincing yourself or others that a particular mutation is real rather than an artefact and for getting a feel for short read sequencing datasets. However, if we want to quickly and easily find variants we need to be able to generate lists of variants, in which gene they occur (if any) and what effect they have. We also need to know which (if any) genes are missing (i.e. have zero coverage).</p>
+
+<p>To call variants we can use a number of packages (e.g. VarScan, GATK). However here, we will show you how to use the bcftools package which comes with samtools. First we need to generate a pileup file which contains only locations with the variants and pass this to bcftools.</p>
+
+<p>Make sure you are in the correct directory.<br>
+<code class="highlighter-rouge">cd ~/workshop_materials/genomics_tutorial/data/sequencing/ecoli_exeter/remapping_to_reference</code><br>
+and type the following:</p>
+
+<p><code class="highlighter-rouge">samtools mpileup</code></p>
+
+<p>You should see a screen similar to the following</p>
+
+<p><img src="./02-part2-remapping_files/part2_task22_01.png" alt=""></p>
+
+<p>If you are running this on datasets with large numbers of datasets with limited coverage where recombination is a factor, you can obtain increased sensitivity by passing all the BAM files to the variant caller simultaneously (hence the multiple BAM file options in samtools).</p>
+
+<p>Type the following:</p>
+
+<p><code class="highlighter-rouge">samtools mpileup -v -u -P Illumina --reference ~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.fna E_Coli_CGATGT_L001_filtered.sorted.rmdup.bam &gt;  var.raw.vcf </code></p>
+
+<p>This may take 10 minutes or so and will generate a VCF file containing the raw unfiltered variant calls for each position in the genome. Note that we are asking samtools mpileup to generate uncompressed VCF output with the -v and -u options. -P tells samtools it is dealing with Illumina data so that it can apply to the correct model to help account for mis-calls or indels.</p>
+
+<p>This output by itself is not useful to us since it contains information on each position in the genome. So lets use the sister package of samtools, called bcftools to call what it thinks are the variant sites:</p>
+
+<p><code class="highlighter-rouge">bcftools --help</code></p>
+
+<p><img src="./02-part2-remapping_files/part2_task22_02.png" alt=""></p>
+
+<p><code class="highlighter-rouge">bcftools call -c -v --ploidy 1 -O v -o var.called.vcf var.raw.vcf</code></p>
+
+<p>Note that we are asking bcftools to call using assuming a ploidy of 1 and to output only the variant sites in VCF format. Using grep we can count how many sites were identified as being variant sites (i.e. sites with a potential mutation). We ask grep not to count lines beginning with a comment (#).</p>
+
+<p><code class="highlighter-rouge">grep -v -c  "^#" var.called.vcf</code></p>
+
+<p>You should find 320 or so sites.</p>
+
+<p>Now we just need to filter this a bit further to ensure we only retain regions where we have &gt;90% allele frequency:</p>
+
+<p><code class="highlighter-rouge">vcftools --min-alleles 2 --max-alleles 2 --non-ref-af 0.9 --vcf var.called.vcf --recode --out var.called.filt</code></p>
+
+<p>(the output will be called var.called.filt.recode.vcf)</p>
+
+<p>Once complete, view the file using the ‘more’ command. You should see something similar to: (lines beginning with # are just comment lines explaining the output)</p>
+
+<p><img src="./02-part2-remapping_files/part2_task22_03.png" alt=""></p>
+
+<p>You can see the chromosome, position, reference and alternate allele as well as a quality score for the SNP. This is a VCF file (Variant Call File). This is a standard developed for the 1000 genomes project.</p>
+
+<p>The full specification is given <a href="http://samtools.github.io/hts-specs/VCFv4.2.pdf">at http://samtools.github.io/hts-specs/VCFv4.2.pdf </a></p>
+
+<p>The lines starting DP and INDEL contain various details concerning the variants. For haploid organisms, most of these details are not necessary.</p>
+
+<p>This forms our definitive list of variants for this sample.</p>
+
+<p>Take a look at some of the variants we just excluded, was it justified? Remember there is no filter that can keep all the correct variants and remove all the dubious!</p>
+
+<p>You can load the VCF file to IGV:</p>
+
+<p><strong>Task 23: Compare the variants found using this method to those you
+found in the manual section</strong></p>
+
+<p>Can you see any variants which may have been missed? Often variants within a few bp of indels are filtered out as they could be spurious SNPs thrown up by a poor alignment. This is especially the case if you use non-gapped aligners such as Bowtie.</p>
+
+<p><strong>Task 24 locating genes which are missing compared to the reference</strong></p>
+
+<p>We can use a command from the BEDTools package (http://bedtools.readthedocs.org/en/latest/) to identify annotated genes which are not covered by reads across their full length.</p>
+
+<p>Type the following on one line:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>coverageBed -a ~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.gff -b E_Coli_CGATGT_L001_filtered.sorted.rmdup.bam &gt; gene_coverage.txt
+</code></pre></div></div>
+
+<p>This should only take a minute or so. The output contains one row per annotated gene - the last column contains the proportion of the gene that is covered but reads from our sequencing. 1.00 means the gene is 100% covered and 0.00 means no coverage.</p>
+
+<p>If we sort by this column we can see which genes are missing  (N.B. -k 13 means sort by the 13th column, replace the 13 by whatever the final column number is in
+your file):</p>
+
+<p><code class="highlighter-rouge">sort -t$'\t' -g -k 13 gene_coverage.txt  | more</code></p>
+
+<p>There is another region of about 10kb which is absent from out sequences - can you find it in IGV?</p>
+
+<p><img src="./02-part2-remapping_files/part2_task24_01.png" alt=""></p>
+
+<p><strong>Task 25: Determine the effect of variants</strong></p>
+
+<p>So far we have found a number of genes missing from this strain of <em>E.coli</em> which obviously could have a phenotypic effect. Let’s now take a closer look at the variants. We’d like to obtain a list of genes in which these variants occur and whether they result in amino acid changes.</p>
+
+<p>To do this we’ll use a custom perl script developed by David Studholme and Konrad Paszkiewicz.</p>
+
+<p>We’ll just need the reference annotation, sequence and the VCF file containing the SNPs.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>snp_comparator.pl 10 ~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.fna ~/workshop_materials/genomics_tutorial/data/reference/U00096/U00096.gff var.called.filt.recode.vcf  &gt; snp_report.txt
+</code></pre></div></div>
+
+<p>You will see lots of warnings about ‘Use of uninitialized value $gene_name - you can ignore these.</p>
+
+<p>This program takes the information from the reference sequence and annotation, and the VCF SNP files and determines whether the variant occurs within a gene, and if so the effect of each mutation.</p>
+
+<p>Once complete, view the snp_report.txt file.</p>
+
+<p><img src="./02-part2-remapping_files/part2_task25_01.png" alt=""></p>
+
+<p>In later workshops we will see how we can use this program to compare results between different strains.</p>
+
+<p>You can also use tools such as SNPEff to evaluate the effect of variants <a href="http://snpeff.sourceforge.net/index.html">(http://snpeff.sourceforge.net/index.html) </a></p>
+
+<p><strong>Task 26: Check each variant in IGV</strong></p>
+
+<p>**N.B. If a variant doesn’t seem to match what the snp_report file says, check the reverse reading frames.</p>
+
+<p><strong>That concludes the first part of the course. You have successfully, QC’d, filtered, remapped and analysed a whole bacterial genome! Well done!</strong></p>
+
+<p>In the next instalment we will be looking at how to extract and assemble
+unmapped reads. This will enable us to look at material which may be present in the strain of interest but not in the reference sequence.</p>
+
+<p><img src="./02-part2-remapping_files/2017_Workshop_on_Genomics_FINAL-62_1.png" alt=""></p>
+
+
+  
+
+<div class="page-navigation">
+
+  
+  
+
+  
+  
+
+  
+     
+	    <a class="prev" href="https://biomedicalhub.github.io/genomics/01-part1-introduction.html">« Part 1. Short Read Genomics: Introduction</a>
+    
+     
+      
+	    <a class="next" href="https://biomedicalhub.github.io/genomics/03-part3-unmapped-assembly.html">» Part 3. Unmapped Read Assembly</a>
+    
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+</div> 
+
+</div>
+
+
+        
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+    <script>
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+  
+
+  
+
+
+<script>mendeleyWebImporter = {
+  downloadPdfs(e,t) { return this._call('downloadPdfs', [e,t]); },
+  open() { return this._call('open', []); },
+  setLoginToken(e) { return this._call('setLoginToken', [e]); },
+  _call(methodName, methodArgs) {
+    const id = Math.random();
+    window.postMessage({ id, token: '0.6145543182532633', methodName, methodArgs }, 'https://biomedicalhub.github.io');
+    return new Promise(resolve => {
+      const listener = window.addEventListener('message', event => {
+        const data = event.data;
+        if (typeof data !== 'object' || !('result' in data) || data.id !== id) return;
+        window.removeEventListener('message', listener);
+        resolve(data.result);
+      });
+    });
+  }
+};</script></body></html>
